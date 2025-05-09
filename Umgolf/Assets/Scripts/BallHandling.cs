@@ -8,21 +8,29 @@ using UnityEngine.InputSystem;
 public class BallHandling : MonoBehaviour
 {
     private Rigidbody2D _rigidBody;
+    [SerializeField] private LineRenderer _referencelineRenderer;
     
-    private bool _canStartInput;
     [SerializeField] private InputActionReference _holdAction;
-
-    private Vector2 _fingerPosition;
-    private float _powerAccumulated = 0f;
-    [SerializeField] private float _maxPowerPossible = 6.5f;
+    [SerializeField] private InputActionReference _holdButtonAction;
     
+    private float _powerAccumulated = 0f;
+    [SerializeField] private float _maxPowerPossible = 30f;
     
     public UnityEvent OnBallSwingEvent;
     public UnityEvent<Vector2> OnBallBounceEvent;
 
+    private readonly Vector2 _startingBallPosition = new Vector2(0, -3);
+    private Vector2 _initialTouchPosition;
+    [SerializeField] Vector2 _currentTouchPosition;
+    [SerializeField] Vector2 _distanceFromBall;
+
     private void OnEnable()
     {
         _holdAction.action.Enable();
+        _holdButtonAction.action.Enable();
+        
+        transform.position = _startingBallPosition;
+        _rigidBody.velocity = Vector2.zero;
     }
     private void Awake()
     {
@@ -31,37 +39,65 @@ public class BallHandling : MonoBehaviour
         _holdAction.action.started += HoldStarted;
         _holdAction.action.performed += HoldContinue;
         _holdAction.action.canceled += HoldRelease;
+        
+        _holdButtonAction.action.started += HoldButtonStarted;
+        _holdButtonAction.action.canceled += HoldButtonReleased;
     }
 
     void Start()
     {
-        
+        _distanceFromBall = transform.position;
+        //Camera.main.orthographicSize = 6.3f;
     }
     void Update()
     {
-
+        
     }
-    //TODO: Implement Touch Controls:
-    //-> Start pressing -> Gizmo control, set max radius, vector from ball to location.
-    //-> Release Press -> Ball.AddForce based on Vector of trajectory and multiplied by the strength of the swing (the radius)
-    //Prevent subsequent happenings
 
+    private void HoldButtonStarted(InputAction.CallbackContext obj)
+    {
+        this.enabled = true;
+        _initialTouchPosition = _currentTouchPosition;
+    }
+
+    private void HoldButtonReleased(InputAction.CallbackContext obj)
+    {
+        this.enabled = false;
+    }
     private void HoldStarted(InputAction.CallbackContext obj)
     {
-        Debug.Log($"Started Touch Handling at: {obj.ReadValue<Vector2>()}");
+        _currentTouchPosition = Camera.main.ScreenToWorldPoint(obj.ReadValue<Vector2>());
+        Debug.Log($"Started Touch Handling at: {_currentTouchPosition}");
+        
     }
     private void HoldContinue(InputAction.CallbackContext obj)
     {
-        while (_holdAction.action.inProgress)
-        {
-            Debug.Log($"Continued at: {obj.ReadValue<Vector2>()}");
-        }
+        _currentTouchPosition = Camera.main.ScreenToWorldPoint(obj.ReadValue<Vector2>());
+        Debug.Log($"Continued at: {_currentTouchPosition}");
+        Vector2 direction = _distanceFromBall - _currentTouchPosition;
+        _powerAccumulated = direction.magnitude * 9f;
+        
+        Camera.main.orthographicSize = Mathf.Clamp(5f + (direction.magnitude * 0.33f), 5f, 6.3f);
+        
+        _referencelineRenderer.SetPosition(0, _startingBallPosition);
+        _referencelineRenderer.SetPosition(1, _startingBallPosition + Vector2.ClampMagnitude((direction * _powerAccumulated) / 2.5f, _maxPowerPossible / 2.5f));
+        
     }
     private void HoldRelease(InputAction.CallbackContext obj)
     {
-        Debug.Log($"Released at: {obj.ReadValue<Vector2>()}");
+        //_currentTouchPosition = Camera.main.ScreenToWorldPoint(obj.ReadValue<Vector2>());
+        float distance = Vector2.Distance(_distanceFromBall, _currentTouchPosition);
+        if (distance < 0.8)
+        {
+            return;
+        }
+        Vector2 direction = _distanceFromBall - _currentTouchPosition;
+        Debug.Log($"Direction sent: {direction}");
+        
+        //_rigidBody.velocity = Vector2.ClampMagnitude(direction * _powerAccumulated, _maxPowerPossible);
+        _rigidBody.AddForce(Vector2.ClampMagnitude(direction * _powerAccumulated, _maxPowerPossible));
     }
-
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -71,6 +107,8 @@ public class BallHandling : MonoBehaviour
 
     private void OnDisable()
     {
+        _referencelineRenderer.positionCount = 0;
         _holdAction.action.Disable();
+        //_holdButtonAction.action.Disable();
     }
 }
