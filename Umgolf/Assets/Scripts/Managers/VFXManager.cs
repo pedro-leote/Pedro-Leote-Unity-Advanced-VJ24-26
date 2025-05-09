@@ -26,10 +26,8 @@ public class VFXManager : MonoBehaviour
     {
         for (int i = 0; i < _poolSize; ++i)
         {
-            Debug.Log($"Entered For Loop in Iteration: {i}");
             GameObject poolObject = Instantiate(_bounceVFX, transform);
             _bounceVFXPool.Add(poolObject);
-            Debug.Log($"Added {poolObject.name} to Pool");
             _bounceVFXPool[i].SetActive(false);
         }
     }

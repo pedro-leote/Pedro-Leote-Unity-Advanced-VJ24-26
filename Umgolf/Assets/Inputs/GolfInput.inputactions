@@ -1,0 +1,45 @@
+{
+    "name": "GolfInput",
+    "maps": [
+        {
+            "name": "Golf Controls",
+            "id": "67e63f85-f111-4a87-ad61-91e63668d62d",
+            "actions": [
+                {
+                    "name": "Hold",
+                    "type": "Value",
+                    "id": "6593da08-b2c0-494f-ac8f-475a53245624",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "85e2566e-dd9e-4cf8-8c0c-54564da31506",
+                    "path": "<Mouse>/position",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ea1b500-a86e-42a0-bd01-6fc40250d4f5",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
