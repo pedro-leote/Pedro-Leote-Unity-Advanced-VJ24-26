@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class BallHandling : MonoBehaviour
 {
     private Rigidbody2D _rigidBody;
-    [SerializeField] private LineRenderer _referencelineRenderer;
+    [SerializeField] private LineRenderer _referenceLineRenderer;
     
     [SerializeField] private InputActionReference _holdAction;
     [SerializeField] private InputActionReference _holdButtonAction;
@@ -29,6 +29,7 @@ public class BallHandling : MonoBehaviour
         _holdAction.action.Enable();
         _holdButtonAction.action.Enable();
         
+        _referenceLineRenderer.positionCount = 2;
         transform.position = _startingBallPosition;
         _rigidBody.velocity = Vector2.zero;
     }
@@ -47,7 +48,6 @@ public class BallHandling : MonoBehaviour
     void Start()
     {
         _distanceFromBall = transform.position;
-        //Camera.main.orthographicSize = 6.3f;
     }
     void Update()
     {
@@ -79,8 +79,8 @@ public class BallHandling : MonoBehaviour
         
         Camera.main.orthographicSize = Mathf.Clamp(5f + (direction.magnitude * 0.33f), 5f, 6.3f);
         
-        _referencelineRenderer.SetPosition(0, _startingBallPosition);
-        _referencelineRenderer.SetPosition(1, _startingBallPosition + Vector2.ClampMagnitude((direction * _powerAccumulated) / 2.5f, _maxPowerPossible / 2.5f));
+        _referenceLineRenderer.SetPosition(0, _startingBallPosition);
+        _referenceLineRenderer.SetPosition(1, _startingBallPosition + Vector2.ClampMagnitude((direction * _powerAccumulated) / 5f, _maxPowerPossible / 5f));
         
     }
     private void HoldRelease(InputAction.CallbackContext obj)
@@ -107,7 +107,7 @@ public class BallHandling : MonoBehaviour
 
     private void OnDisable()
     {
-        _referencelineRenderer.positionCount = 0;
+        _referenceLineRenderer.positionCount = 0;
         _holdAction.action.Disable();
         //_holdButtonAction.action.Disable();
     }
