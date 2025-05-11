@@ -1364,6 +1364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1462109015}
+  - component: {fileID: 1462109016}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -1386,6 +1387,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1726519766}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462109016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462109014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9a5657b92a0584799f0af0d4e99fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1495342447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,6 +1879,7 @@ GameObject:
   - component: {fileID: 1960225143}
   - component: {fileID: 1960225142}
   - component: {fileID: 1960225141}
+  - component: {fileID: 1960225144}
   m_Layer: 0
   m_Name: Hole
   m_TagString: Untagged
@@ -1976,6 +1990,21 @@ Transform:
   - {fileID: 1347623061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1960225144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960225140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a762d9113370449a7bbccca42ae618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBallEnterHoleEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2022024237
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,20 @@ public class BallHandling : MonoBehaviour
     private Vector2 _initialTouchPosition;
     [SerializeField] Vector2 _currentTouchPosition;
     [SerializeField] Vector2 _distanceFromBall;
-
+    
+    private static BallHandling _instance;
+    public static BallHandling Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new BallHandling();
+            }
+            return _instance;
+        }
+    }
+    
     private void OnEnable()
     {
         _holdAction.action.Enable();
@@ -67,13 +80,10 @@ public class BallHandling : MonoBehaviour
     private void HoldStarted(InputAction.CallbackContext obj)
     {
         _currentTouchPosition = Camera.main.ScreenToWorldPoint(obj.ReadValue<Vector2>());
-        Debug.Log($"Started Touch Handling at: {_currentTouchPosition}");
-        
     }
     private void HoldContinue(InputAction.CallbackContext obj)
     {
         _currentTouchPosition = Camera.main.ScreenToWorldPoint(obj.ReadValue<Vector2>());
-        Debug.Log($"Continued at: {_currentTouchPosition}");
         Vector2 direction = _distanceFromBall - _currentTouchPosition;
         _powerAccumulated = direction.magnitude * 9f;
         
@@ -92,13 +102,23 @@ public class BallHandling : MonoBehaviour
             return;
         }
         Vector2 direction = _distanceFromBall - _currentTouchPosition;
-        Debug.Log($"Direction sent: {direction}");
         
         //_rigidBody.velocity = Vector2.ClampMagnitude(direction * _powerAccumulated, _maxPowerPossible);
         _rigidBody.AddForce(Vector2.ClampMagnitude(direction * _powerAccumulated, _maxPowerPossible));
     }
-    
 
+    public void BallReachingHoleWrapper()
+    {
+        StartCoroutine(OnBallReachingHole());
+    }
+
+    private IEnumerator OnBallReachingHole()
+    {
+        _rigidBody.velocity = Vector2.zero;
+        
+        transform.position = Vector3.Slerp(transform.position, HoleHandling.Instance.gameObject.transform.position, 0.2f);
+        yield return new WaitForSeconds(0.5f);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D contactPoint = collision.GetContact(0);
