@@ -19,7 +19,7 @@ public class BallHandling : MonoBehaviour
     public UnityEvent OnBallSwingEvent;
     public UnityEvent<Vector2> OnBallBounceEvent;
 
-    private readonly Vector2 _startingBallPosition = new Vector2(0, -3);
+    private Vector2 _startingBallPosition = new Vector2(0, -3);
     private Vector2 _initialTouchPosition;
     [SerializeField] Vector2 _currentTouchPosition;
     [SerializeField] Vector2 _distanceFromBall;
@@ -62,11 +62,6 @@ public class BallHandling : MonoBehaviour
     {
         _distanceFromBall = transform.position;
     }
-    void Update()
-    {
-        
-    }
-
     private void HoldButtonStarted(InputAction.CallbackContext obj)
     {
         this.enabled = true;
@@ -90,7 +85,7 @@ public class BallHandling : MonoBehaviour
         Camera.main.orthographicSize = Mathf.Clamp(5f + (direction.magnitude * 0.33f), 5f, 6.3f);
         
         _referenceLineRenderer.SetPosition(0, _startingBallPosition);
-        _referenceLineRenderer.SetPosition(1, _startingBallPosition + Vector2.ClampMagnitude((direction * _powerAccumulated) / 5f, _maxPowerPossible / 5f));
+        _referenceLineRenderer.SetPosition(1, _startingBallPosition + Vector2.ClampMagnitude((direction * _powerAccumulated) / 25f, _maxPowerPossible / 25f));
         
     }
     private void HoldRelease(InputAction.CallbackContext obj)
@@ -116,8 +111,19 @@ public class BallHandling : MonoBehaviour
     {
         _rigidBody.velocity = Vector2.zero;
         
-        transform.position = Vector3.Slerp(transform.position, HoleHandling.Instance.gameObject.transform.position, 0.2f);
-        yield return new WaitForSeconds(0.5f);
+        //TODO: All this grabbing of the Hole is long & impractical... perhaps init a variable with it on Start()?
+		float distance = Vector3.Distance(HoleHandling.Instance.gameObject.transform.position, transform.position);
+
+		
+		while(distance > 0.03f)
+		{
+            
+        	transform.position = Vector3.Lerp(transform.position, HoleHandling.Instance.gameObject.transform.position, 0.2f);
+            distance = Vector3.Distance(HoleHandling.Instance.gameObject.transform.position, transform.position);
+            
+        	yield return null;
+		}
+		yield return null;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

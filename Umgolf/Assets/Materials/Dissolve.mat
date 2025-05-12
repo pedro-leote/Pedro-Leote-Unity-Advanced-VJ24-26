@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8192747359242906937
+--- !u!114 &-3836868544514859720
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ball Aim
-  m_Shader: {fileID: -6465566751694194690, guid: b4edba431d3cb3545b59d8e23a401477, type: 3}
+  m_Name: Dissolve
+  m_Shader: {fileID: -6465566751694194690, guid: ec8612f362a61f746bd07b7679b11c1c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -35,19 +35,11 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _SampleTexture2D_f2ddc1d64d7141fab0ad6784114fd077_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 9f1d3d9eed1ddc54f9ed0e9f3b12a0c8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 9f1d3d9eed1ddc54f9ed0e9f3b12a0c8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _ScrollSpeed: 1
+    - _TransparencyCutoff: 1
     m_Colors: []
   m_BuildTextureStacks: []
