@@ -11,12 +11,14 @@ public class LevelLayout : ScriptableObject
     public Transform _ballPosition;
     public Transform _holePosition;
 
-    [Serializable] public class LevelObject
-    {
-        public GameObject _prefab;
-        public Vector3 _position;
-        public Quaternion _rotation;
-        public Vector3 _scale;
-    }
-    public List<LevelObject> _levelObjects = new List<LevelObject>();
+    public GameObject _levelParentObject;
+    public List<GameObject> _levelObjects = new List<GameObject>();
+    //[Serializable] public class LevelObject
+    //{
+    //    public GameObject _prefab;
+    //    public Vector3 _position;
+    //    public Quaternion _rotation;
+    //    public Vector3 _scale;
+    //}
+    //public List<LevelObject> _levelObjects = new List<LevelObject>();
 }

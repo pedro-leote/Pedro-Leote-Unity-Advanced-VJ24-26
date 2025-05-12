@@ -8,6 +8,13 @@ public class LevelManager : MonoBehaviour
     //This makes it easier to handle new levels as merely new SO configurations, decreases loading periods, and works with less objects over the runtime.
     [SerializeField] private LevelLayout _currentLevelLayout;
     [SerializeField] private LevelLayout _nextLevelLayout;
-    
+
+    public GameObject InitializeLevelData(LevelLayout levelLayout, Transform positionToPlaceAt)
+    {
+        GameObject parentObject = levelLayout._levelParentObject;
+
+
+        return null; // Replace
+    }
     
 }
