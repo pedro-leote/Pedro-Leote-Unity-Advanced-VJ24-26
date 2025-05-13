@@ -10,13 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a8386167662a0b4aacfa1d8777ab8cc, type: 3}
-  m_Name: 0
+  m_Name: Layout_1
   m_EditorClassIdentifier: 
-  _levelIndex: 0
+  _levelIndex: 1
   _ballPosition: {fileID: 0}
   _holePosition: {fileID: 0}
+  _levelParentObject: {fileID: 0}
   _levelObjects:
-  - _prefab: {fileID: 0}
-    _position: {x: 0, y: 0, z: 0}
-    _rotation: {x: 0, y: 0, z: 0, w: 0}
-    _scale: {x: 0, y: 0, z: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

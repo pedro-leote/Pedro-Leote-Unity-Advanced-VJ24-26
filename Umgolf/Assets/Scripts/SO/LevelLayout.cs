@@ -13,12 +13,9 @@ public class LevelLayout : ScriptableObject
 
     public GameObject _levelParentObject;
     public List<GameObject> _levelObjects = new List<GameObject>();
-    //[Serializable] public class LevelObject
-    //{
-    //    public GameObject _prefab;
-    //    public Vector3 _position;
-    //    public Quaternion _rotation;
-    //    public Vector3 _scale;
-    //}
-    //public List<LevelObject> _levelObjects = new List<LevelObject>();
+    
+    public class LevelObjectData
+    {
+        
+    }
 }
