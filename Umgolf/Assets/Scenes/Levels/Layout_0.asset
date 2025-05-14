@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Layout_0
   m_EditorClassIdentifier: 
   _levelIndex: 0
-  _ballPosition: {fileID: 0}
-  _holePosition: {fileID: 0}
+  _ballPosition: {x: 0, y: 0, z: 0}
+  _holePosition: {x: 0, y: 0, z: 0}
   _levelParentObject:
     _name: Level Layout (1)
     _position: {x: -4.97, y: -0.021325229, z: 0}

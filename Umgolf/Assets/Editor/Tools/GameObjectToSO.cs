@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.EditorTools;
 using UnityEngine;
@@ -8,12 +9,16 @@ using UnityEngine;
 public class GameObjectToSO : EditorWindow
 {
     private static LevelObjectData _parentObject;
-    private static LevelLayout _gameObjectToConvert;
     private static List<LevelObjectData> _childrenList = new List<LevelObjectData>();
+    private static List<LevelPrefabData> _prefabList = new List<LevelPrefabData>();
     
     [MenuItem("Tools/Convert GameObject into Level SO")]
     public static void ConvertGameObjectIntoSO()
     {
+        _parentObject = null;
+        _childrenList.Clear();
+        _prefabList.Clear();
+        
         GameObject selectedGameObject = Selection.activeGameObject;
         Debug.Log("!Begun Conversion!");
         //Grab references of a selected object, find out if children exist
@@ -29,11 +34,24 @@ public class GameObjectToSO : EditorWindow
             _spriteRendererLayer = selectedGameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer2) ? spriteRenderer2.sortingLayerID : 0,
         };
 
-
         if (selectedGameObject.transform.childCount > 0)
         {
             for (int i = 0; i < selectedGameObject.transform.childCount; ++i)
             {
+                if (PrefabUtility.IsPartOfAnyPrefab(selectedGameObject.transform.GetChild(i).gameObject))
+                {
+                    _prefabList.Add(new LevelPrefabData
+                    {
+                        _name = selectedGameObject.transform.GetChild(i).gameObject.name,
+                        _position = selectedGameObject.transform.GetChild(i).localPosition,
+                        _rotation = selectedGameObject.transform.GetChild(i).localRotation,
+                        _scale = selectedGameObject.transform.GetChild(i).localScale,
+                        _prefab = PrefabUtility.GetCorrespondingObjectFromSource(selectedGameObject.transform.GetChild(i).gameObject),
+                        _prefabName = PrefabUtility.GetCorrespondingObjectFromSource(selectedGameObject.transform.GetChild(i).gameObject).name,
+                    });
+                    continue;
+                }
+                
                 _childrenList.Add(new LevelObjectData
                 {
                     _name = selectedGameObject.transform.GetChild(i).gameObject.name,
@@ -54,7 +72,11 @@ public class GameObjectToSO : EditorWindow
         {
             layoutToLoad._levelObjects = _childrenList;
         }
-        
+
+        if (_prefabList != null)
+        {
+            layoutToLoad._levelPrefabs = _prefabList;
+        }
         //Open path to insert new ScriptableObject
         string path = EditorUtility.SaveFolderPanel("Select folder to place Scriptable Objects", "", "");
         

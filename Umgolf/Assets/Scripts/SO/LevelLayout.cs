@@ -8,12 +8,12 @@ public class LevelLayout : ScriptableObject
 {
     public int _levelIndex;
     
-    public Transform _ballPosition;
-    public Transform _holePosition;
+    public Vector3 _ballPosition;
+    public Vector3 _holePosition;
 
     public LevelObjectData _levelParentObject;
     public List<LevelObjectData> _levelObjects = new List<LevelObjectData>();
-    public List<GameObject> _levelPrefabs = new List<GameObject>();
+    public List<LevelPrefabData> _levelPrefabs = new List<LevelPrefabData>();
     
     //TODO: Integrate this class as the information of each given GameObject. Have a Serializer and Deserializer class, and parse this class through the tool class
 }

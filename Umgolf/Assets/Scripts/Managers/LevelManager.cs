@@ -9,8 +9,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelLayout _currentLevelLayout;
     [SerializeField] private LevelLayout _nextLevelLayout;
 
-    public GameObject InitializeLevelData(LevelLayout levelLayout, Transform positionToPlaceAt)
+    public GameObject InitializeLevelData(int levelIndex)
     {
+        
         return null;
     }
 
