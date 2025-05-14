@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class BallHandling : MonoBehaviour
 {
     private Rigidbody2D _rigidBody;
-    [SerializeField] private LineRenderer _referenceLineRenderer;
+    private LineRenderer _referenceLineRenderer;
     
     [SerializeField] private InputActionReference _holdAction;
     [SerializeField] private InputActionReference _holdButtonAction;
@@ -49,6 +49,7 @@ public class BallHandling : MonoBehaviour
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _referenceLineRenderer = GetComponent<LineRenderer>();
 
         _holdAction.action.started += HoldStarted;
         _holdAction.action.performed += HoldContinue;
@@ -70,6 +71,7 @@ public class BallHandling : MonoBehaviour
 
     private void HoldButtonReleased(InputAction.CallbackContext obj)
     {
+        OnBallSwingEvent?.Invoke();
         this.enabled = false;
     }
     private void HoldStarted(InputAction.CallbackContext obj)
