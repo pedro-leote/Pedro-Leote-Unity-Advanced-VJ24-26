@@ -11,17 +11,7 @@ public class LevelManager : MonoBehaviour
 
     public GameObject InitializeLevelData(LevelLayout levelLayout, Transform positionToPlaceAt)
     {
-        //Obter o parent object do SO
-        GameObject parentObject = levelLayout._levelParentObject;
-        List<GameObject> childObjects = new List<GameObject>();
-        //Obter todos os filhos desse parent //TODO: Alterar terreno e boundary items para um object pool, porque são quase sempre os mesmos
-        for (int i = 0; i < parentObject.GetComponentInChildren<Transform>().childCount; ++i)
-        {
-            childObjects.Add(parentObject.GetComponentInChildren<Transform>().GetChild(i).gameObject);
-        }
-        //Instanciar os filhos nas suas posições, mover o parent para a posição onde é adequada.
-        
-        return parentObject;
+        return null;
     }
 
     public void UnloadLevelData(LevelLayout levelLayout)

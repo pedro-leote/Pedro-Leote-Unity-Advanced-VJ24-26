@@ -7,24 +7,33 @@ public class CameraSizeLerp : MonoBehaviour
 {
     private Camera _camera;
     private float _goalSize = 0;
+    private bool _canBeginLerp = false;
     private void Awake()
     {
         _camera = GetComponent<Camera>();
     }
-    
-    public void CameraSizeLerpTo(float size)
+    private void Update()
     {
-        StartCoroutine(LerpTo(size));
-    }
+        if (Mathf.Approximately(_camera.orthographicSize, _goalSize))
+        {
+            _canBeginLerp = false;
+        }
+        
+        if (_canBeginLerp)
+        {
+            _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, _goalSize, Time.deltaTime * 5f);
+        }
 
-    private IEnumerator LerpTo(float size)
+
+    }
+    public void StartLerp(float size)
     {
         _goalSize = size;
-        while (_camera.orthographicSize != _goalSize || _goalSize != 0)
-        {
-            _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, _goalSize, Time.deltaTime * 10f);
-        }
-        _goalSize = 0;
-        yield return null;
+        _canBeginLerp = true;
+    }
+    
+    public void StopLerp()
+    {
+        _canBeginLerp = false;
     }
 }

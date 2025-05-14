@@ -16,6 +16,7 @@ public class BallHandling : MonoBehaviour
     private float _powerAccumulated = 0f;
     [SerializeField] private float _maxPowerPossible = 30f;
     
+    public UnityEvent OnBallEnabledEvent;
     public UnityEvent OnBallSwingEvent;
     public UnityEvent<Vector2> OnBallBounceEvent;
 
@@ -41,6 +42,8 @@ public class BallHandling : MonoBehaviour
     {
         _holdAction.action.Enable();
         _holdButtonAction.action.Enable();
+        
+        OnBallEnabledEvent?.Invoke();
         
         _referenceLineRenderer.positionCount = 2;
         transform.position = _startingBallPosition;
@@ -71,7 +74,7 @@ public class BallHandling : MonoBehaviour
 
     private void HoldButtonReleased(InputAction.CallbackContext obj)
     {
-        OnBallSwingEvent?.Invoke();
+        
         this.enabled = false;
     }
     private void HoldStarted(InputAction.CallbackContext obj)
@@ -136,6 +139,7 @@ public class BallHandling : MonoBehaviour
     private void OnDisable()
     {
         _referenceLineRenderer.positionCount = 0;
+        OnBallSwingEvent?.Invoke();
         _holdAction.action.Disable();
         //_holdButtonAction.action.Disable();
     }

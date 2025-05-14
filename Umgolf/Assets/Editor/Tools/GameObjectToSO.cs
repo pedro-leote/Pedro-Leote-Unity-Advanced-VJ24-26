@@ -7,26 +7,49 @@ using UnityEngine;
 
 public class GameObjectToSO : EditorWindow
 {
-    private static GameObject _gameObjectToConvert;
-    private static List<GameObject> _childrenList = new List<GameObject>();
+    private static LevelObjectData _parentObject;
+    private static LevelLayout _gameObjectToConvert;
+    private static List<LevelObjectData> _childrenList = new List<LevelObjectData>();
     
     [MenuItem("Tools/Convert GameObject into Level SO")]
     public static void ConvertGameObjectIntoSO()
     {
+        GameObject selectedGameObject = Selection.activeGameObject;
         Debug.Log("!Begun Conversion!");
         //Grab references of a selected object, find out if children exist
-        _gameObjectToConvert = Selection.activeGameObject;
-        if (_gameObjectToConvert?.transform.childCount > 0)
+        _parentObject = new LevelObjectData
         {
-            for (int i = 0; i < _gameObjectToConvert.transform.childCount; ++i)
+            _name = selectedGameObject.name,
+            _position = selectedGameObject.transform.position,
+            _rotation = selectedGameObject.transform.rotation,
+            _scale = selectedGameObject.transform.localScale,
+            //Estas linhas demonstram o uso de conditional check ao atribuir uma variável, que dá replace a um if(Try...) -> _boxCollider = collider, else() -> null; Assim fica numa sentence.
+            _collider2DSize = selectedGameObject.TryGetComponent<Collider2D>(out Collider2D collider) ? collider.bounds.size : Vector2.zero,
+            _spriteRendererColor = selectedGameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer) ? spriteRenderer.color : Color.black,
+            _spriteRendererLayer = selectedGameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer2) ? spriteRenderer2.sortingLayerID : 0,
+        };
+
+
+        if (selectedGameObject.transform.childCount > 0)
+        {
+            for (int i = 0; i < selectedGameObject.transform.childCount; ++i)
             {
-                _childrenList.Add(_gameObjectToConvert.transform.GetChild(i).gameObject);
+                _childrenList.Add(new LevelObjectData
+                {
+                    _name = selectedGameObject.transform.GetChild(i).gameObject.name,
+                    _position = selectedGameObject.transform.GetChild(i).localPosition,
+                    _rotation = selectedGameObject.transform.GetChild(i).localRotation,
+                    _scale = selectedGameObject.transform.GetChild(i).localScale,
+                    _collider2DSize = selectedGameObject.transform.GetChild(i).TryGetComponent<Collider2D>(out Collider2D childCollider2D) ? childCollider2D.bounds.size : Vector2.zero,
+                    _spriteRendererColor = selectedGameObject.transform.GetChild(i).TryGetComponent<SpriteRenderer>(out SpriteRenderer childSpriteRenderer) ? childSpriteRenderer.color : Color.black,
+                    _spriteRendererLayer = selectedGameObject.transform.GetChild(i).TryGetComponent<SpriteRenderer>(out SpriteRenderer childSpriteRenderer2) ? childSpriteRenderer2.sortingLayerID : 0,
+                });
             }
-            Debug.Log($"Found components in parent: {_childrenList.Count}...");
+            Debug.Log($"Found generic children in parent: {_childrenList.Count}...");
         }
-        //Grab transforms and insert into List of objects.
+        //Compile LevelObjectData into LevelLayout.
         LevelLayout layoutToLoad = ScriptableObject.CreateInstance<LevelLayout>();
-        layoutToLoad._levelParentObject = _gameObjectToConvert;
+        layoutToLoad._levelParentObject = _parentObject;
         if (_childrenList != null)
         {
             layoutToLoad._levelObjects = _childrenList;
@@ -66,6 +89,8 @@ public class GameObjectToSO : EditorWindow
             string layoutName = $"Layout_{layoutToLoad._levelIndex}.asset";
             AssetDatabase.CreateAsset(layoutToLoad, $"{relativePath}/{layoutName}");
             AssetDatabase.SaveAssets();
+            
+            Debug.Log($"Finished Build {layoutName} at {relativePath}.");
         }
         
         
