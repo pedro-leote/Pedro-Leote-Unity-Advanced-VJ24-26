@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
+using UnityEditor;
+using UnityEditor.VersionControl;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,8 +12,24 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelLayout _currentLevelLayout;
     [SerializeField] private LevelLayout _nextLevelLayout;
 
+    private bool _canFunction = true;
+    //Não sei ainda usar Dictionaries neste case, porque precisava de dar check
+    private Dictionary<int, LevelLayout> _levelLayoutDictionary = new Dictionary<int, LevelLayout>();
+    
+    
+    #if UNITY_EDITOR
+    private void Update()
+    {
+        
+    }
+    #endif
+    
+    
+    //This is the first iteration, continuosly triggering and checking files when we need a new one. I'm not happy with it
     public GameObject InitializeLevelData(int levelIndex)
     {
+        //Run file getter
+        
         
         return null;
     }
