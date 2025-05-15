@@ -29,12 +29,25 @@ public class LevelManager : MonoBehaviour
     public GameObject InitializeLevelData(int levelIndex)
     {
         //Run file getter
-        
-        
-        return null;
+        if (!_canFunction)
+        {
+            return null;
+        }
+
+
+        return null; // Temp
     }
 
     public void UnloadLevelData(LevelLayout levelLayout)
+    {
+        if (!_canFunction)
+        {
+            return;
+        }
+        
+    }
+
+    private void StartLoading()
     {
         
     }

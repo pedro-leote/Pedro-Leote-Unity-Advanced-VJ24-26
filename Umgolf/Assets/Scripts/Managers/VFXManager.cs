@@ -7,7 +7,7 @@ public class VFXManager : MonoBehaviour
     [SerializeField] private GameObject _bounceVFX;
 
     private List<GameObject> _bounceVFXPool = new List<GameObject>();
-    [SerializeField] private int _poolSize = 4;
+    [SerializeField] private int _bouncePoolSize = 4;
     private static VFXManager _instance;
     public static VFXManager Instance
     {
@@ -24,7 +24,7 @@ public class VFXManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < _poolSize; ++i)
+        for (int i = 0; i < _bouncePoolSize; ++i)
         {
             GameObject poolObject = Instantiate(_bounceVFX, transform);
             _bounceVFXPool.Add(poolObject);
