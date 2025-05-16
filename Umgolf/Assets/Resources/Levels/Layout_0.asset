@@ -17,7 +17,7 @@ MonoBehaviour:
   _holePosition: {x: 0, y: 0, z: 0}
   _levelParentObject:
     _name: Level Layout (1)
-    _position: {x: -4.97, y: -0.021325229, z: 0}
+    _position: {x: -5.26, y: -0.021325229, z: 0}
     _rotation: {x: 0, y: 0, z: 0, w: 1}
     _scale: {x: 1, y: 1, z: 1}
     _collider2DSize: {x: 0, y: 0}
@@ -42,14 +42,14 @@ MonoBehaviour:
     _position: {x: 0.53054696, y: 3.9713252, z: 0}
     _rotation: {x: -0, y: -0, z: -0, w: 1}
     _scale: {x: 3.5544686, y: 0.31, z: 1}
-    _collider2DSize: {x: 3.5544689, y: 0.30999994}
+    _collider2DSize: {x: 3.5544684, y: 0.30999994}
     _spriteRendererColor: {r: 0.94509804, g: 0.4294889, b: 0.22745097, a: 1}
     _spriteRendererLayer: 0
   - _name: Square (4)
     _position: {x: 0.53054696, y: -3.928675, z: 0}
     _rotation: {x: -0, y: -0, z: -0, w: 1}
     _scale: {x: 3.5544686, y: 0.31, z: 1}
-    _collider2DSize: {x: 3.5544689, y: 0.30999994}
+    _collider2DSize: {x: 3.5544684, y: 0.30999994}
     _spriteRendererColor: {r: 0.94509804, g: 0.4294889, b: 0.22745097, a: 1}
     _spriteRendererLayer: 0
   - _name: Square (2)

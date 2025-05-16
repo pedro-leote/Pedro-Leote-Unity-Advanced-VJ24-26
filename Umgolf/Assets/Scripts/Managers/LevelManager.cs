@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.VersionControl;
+using UnityEngine.Rendering;
 
 public class LevelManager : MonoBehaviour
 {
@@ -11,45 +13,69 @@ public class LevelManager : MonoBehaviour
     //This makes it easier to handle new levels as merely new SO configurations, decreases loading periods, and works with less objects over the runtime.
     [SerializeField] private LevelLayout _currentLevelLayout;
     [SerializeField] private LevelLayout _nextLevelLayout;
+    
+    [SerializeField] SerializedDictionary<int, LevelLayout> _levelLayoutDictionary = new SerializedDictionary<int, LevelLayout>();
 
-    private bool _canFunction = true;
-    //Não sei ainda usar Dictionaries neste case, porque precisava de dar check
-    private Dictionary<int, LevelLayout> _levelLayoutDictionary = new Dictionary<int, LevelLayout>();
-    
-    
-    #if UNITY_EDITOR
-    private void Update()
+    private static LevelManager _instance;
+    public static LevelManager Instance
     {
-        
-    }
-    #endif
-    
-    
-    //This is the first iteration, continuosly triggering and checking files when we need a new one. I'm not happy with it
-    public GameObject InitializeLevelData(int levelIndex)
-    {
-        //Run file getter
-        if (!_canFunction)
+        get
         {
+            if (_instance == null)
+            {
+                _instance = new LevelManager();
+            }
+            return _instance;
+        }
+    }
+    
+    private void Awake()
+    {
+        DontDestroyOnLoad(Instance);
+    }
+    
+
+    
+    public void ReceiveDictionary(LevelLayout[] levelLayoutCollection)
+    {
+        for (int i = 0; i < levelLayoutCollection.Length; ++i)
+        {
+            _levelLayoutDictionary.Add(levelLayoutCollection[i]._levelIndex, levelLayoutCollection[i]);
+        }
+    }
+
+    public void CleanDictionary()
+    {
+        _levelLayoutDictionary.Clear();
+    }
+    
+
+    public GameObject GrabLevelData(int levelIndex)
+    {
+        if (!_levelLayoutDictionary.ContainsKey(levelIndex))
+        {
+            Debug.Log("Could not find given level index. Quitting.");
             return null;
+            
         }
 
+        GameObject levelObject = StartLoading(_levelLayoutDictionary[levelIndex]);
 
+        return levelObject; // Temp
+    }
+
+    public void UnloadLevelData(GameObject levelObject)
+    {
+        //TODO: Detect poolable entries and send them back to usable state
+        
+    }
+
+    private GameObject StartLoading(LevelLayout levelLayout)
+    {
+        GameObject _instantiatedParent = new GameObject();
+                
+        
         return null; // Temp
-    }
-
-    public void UnloadLevelData(LevelLayout levelLayout)
-    {
-        if (!_canFunction)
-        {
-            return;
-        }
-        
-    }
-
-    private void StartLoading()
-    {
-        
     }
     
 }

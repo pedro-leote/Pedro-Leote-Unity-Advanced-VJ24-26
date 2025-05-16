@@ -31,7 +31,7 @@ public class GameObjectToSO : EditorWindow
             //Estas linhas demonstram o uso de conditional check ao atribuir uma variável, que dá replace a um if(Try...) -> _boxCollider = collider, else() -> null; Assim fica numa sentence.
             _collider2DSize = selectedGameObject.TryGetComponent<Collider2D>(out Collider2D collider) ? collider.bounds.size : Vector2.zero,
             _spriteRendererColor = selectedGameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer) ? spriteRenderer.color : Color.black,
-            _spriteRendererLayer = selectedGameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer2) ? spriteRenderer2.sortingLayerID : 0,
+            _spriteRendererLayer = selectedGameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer2) ? spriteRenderer2.sortingOrder : 0,
         };
 
         if (selectedGameObject.transform.childCount > 0)
@@ -60,7 +60,7 @@ public class GameObjectToSO : EditorWindow
                     _scale = selectedGameObject.transform.GetChild(i).localScale,
                     _collider2DSize = selectedGameObject.transform.GetChild(i).TryGetComponent<Collider2D>(out Collider2D childCollider2D) ? childCollider2D.bounds.size : Vector2.zero,
                     _spriteRendererColor = selectedGameObject.transform.GetChild(i).TryGetComponent<SpriteRenderer>(out SpriteRenderer childSpriteRenderer) ? childSpriteRenderer.color : Color.black,
-                    _spriteRendererLayer = selectedGameObject.transform.GetChild(i).TryGetComponent<SpriteRenderer>(out SpriteRenderer childSpriteRenderer2) ? childSpriteRenderer2.sortingLayerID : 0,
+                    _spriteRendererLayer = selectedGameObject.transform.GetChild(i).TryGetComponent<SpriteRenderer>(out SpriteRenderer childSpriteRenderer2) ? childSpriteRenderer2.sortingOrder : 0
                 });
             }
             Debug.Log($"Found generic children in parent: {_childrenList.Count}...");

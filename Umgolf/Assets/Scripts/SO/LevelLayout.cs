@@ -15,5 +15,4 @@ public class LevelLayout : ScriptableObject
     public List<LevelObjectData> _levelObjects = new List<LevelObjectData>();
     public List<LevelPrefabData> _levelPrefabs = new List<LevelPrefabData>();
     
-    //TODO: Integrate this class as the information of each given GameObject. Have a Serializer and Deserializer class, and parse this class through the tool class
 }

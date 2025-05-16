@@ -5,12 +5,12 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SaveManager
+public class SaveManager : MonoBehaviour
 {
     private SaveData _saveDataToReceive;
     
-    private SaveManager _instance;
-    public SaveManager Instance
+    private static SaveManager _instance;
+    public static SaveManager Instance
     {
         get
         {
@@ -35,9 +35,9 @@ public class SaveManager
 
     public void LoadGameState()
     {
-        OnLoadRequestedEvent?.Invoke(_saveDataToReceive);
         string json = File.ReadAllText(Application.persistentDataPath + "/umgolfsave.json");
         _saveDataToReceive = JsonUtility.FromJson<SaveData>(json);
+        OnLoadRequestedEvent?.Invoke(_saveDataToReceive);
     }
 
 }

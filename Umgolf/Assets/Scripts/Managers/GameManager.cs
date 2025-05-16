@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _availableBalls;
     
     
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +22,5 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
-
-
     
 }
