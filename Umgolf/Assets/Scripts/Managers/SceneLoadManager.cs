@@ -7,8 +7,6 @@ public class SceneLoadManager : MonoBehaviour
 {
     private Dictionary<string, AsyncOperation> _sceneOperations = new Dictionary<string, AsyncOperation>();
     
-    
-    
     private static SceneLoadManager _instance;
     public static SceneLoadManager Instance
     {
@@ -33,9 +31,9 @@ public class SceneLoadManager : MonoBehaviour
         titleOperation.allowSceneActivation = false;
         _sceneOperations.Add("TitleScreen", titleOperation);
         //For Game screen
-        AsyncOperation gameOperation = SceneManager.LoadSceneAsync("GameScreen");
+        AsyncOperation gameOperation = SceneManager.LoadSceneAsync("GameScene");
         gameOperation.allowSceneActivation = false;
-        _sceneOperations.Add("GameScreen", gameOperation);
+        _sceneOperations.Add("GameScene", gameOperation);
         
         yield return null;
     }

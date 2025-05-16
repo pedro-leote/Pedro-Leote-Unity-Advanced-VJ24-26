@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelLayout _currentLevelLayout;
     [SerializeField] private LevelLayout _nextLevelLayout;
     
-    [SerializeField] SerializedDictionary<int, LevelLayout> _levelLayoutDictionary = new SerializedDictionary<int, LevelLayout>();
+    [SerializeField] private SerializedDictionary<int, LevelLayout> _levelLayoutDictionary = new SerializedDictionary<int, LevelLayout>();
 
     private static LevelManager _instance;
     public static LevelManager Instance
@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
     
     private void Awake()
     {
+        
         DontDestroyOnLoad(Instance);
     }
     

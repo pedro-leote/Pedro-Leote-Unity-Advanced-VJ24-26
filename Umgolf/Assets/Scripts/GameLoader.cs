@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -9,18 +10,18 @@ using UnityEngine.SceneManagement;
 //Used in the Loading screen to initialize everything into who needs it: levels, save file, next 2 scenes.
 public class GameLoader : MonoBehaviour
 {
-    private LevelLayout[] _levelLayoutArray = null;
+    [SerializeField] private LevelLayout[] _levelLayoutArray = null;
 
-    private bool _hasFinishedSaveLoad = false;
-    private bool _hasFinishedLevels = false;
-    private bool _hasFinishedScenes = false;
+    [SerializeField] private bool _hasFinishedSaveLoad = false;
+    [SerializeField] private bool _hasFinishedLevels = false;
+    [SerializeField] private bool _hasFinishedScenes = false;
     
     public UnityEvent<LevelLayout[]> OnLevelsLoadedEvent = new UnityEvent<LevelLayout[]>();
     public UnityEvent OnScenesLoadedEvent = new UnityEvent();
     
     void Start()
     { 
-
+        StartCoroutine(WaitUntilStartingLoading());
     }
 
     // Update is called once per frame
@@ -58,6 +59,8 @@ public class GameLoader : MonoBehaviour
             yield return request; 
             _levelLayoutArray[i] = request.asset as LevelLayout;
         }
+        
+        OnLevelsLoadedEvent?.Invoke(_levelLayoutArray);
         yield return true;
         _hasFinishedLevels = true;
     }
@@ -65,7 +68,9 @@ public class GameLoader : MonoBehaviour
 
     private IEnumerator LoadSave()
     {
-        SaveManager.Instance.LoadGameState();
+        if(File.Exists(Application.persistentDataPath + "/umgolfsave.json"))
+            SaveManager.Instance.LoadGameState();
+        
         yield return new WaitForEndOfFrame();
         _hasFinishedSaveLoad = true;
     }
@@ -73,6 +78,7 @@ public class GameLoader : MonoBehaviour
     private IEnumerator LoadScenes()
     {
         yield return SceneLoadManager.Instance.LoadScenes();
+        OnScenesLoadedEvent?.Invoke();
         _hasFinishedScenes = true;
     }
 }

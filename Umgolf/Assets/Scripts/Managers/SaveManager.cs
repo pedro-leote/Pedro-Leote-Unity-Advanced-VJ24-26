@@ -21,9 +21,30 @@ public class SaveManager : MonoBehaviour
             return _instance;
         }
     }
-
     public UnityEvent<SaveData> OnSaveRequestedEvent = new UnityEvent<SaveData>();
     public UnityEvent<SaveData> OnLoadRequestedEvent = new UnityEvent<SaveData>();
+    private void Awake()
+    {
+        DontDestroyOnLoad(_instance);
+    }
+    private void Start()
+    {
+        if (File.Exists(Application.persistentDataPath + "/umgolfsave.json"))
+        {
+            return;
+        }
+        
+        SaveData freshSave = new SaveData
+        {
+            _coins = 0,
+            _maxBalls = 5,
+            _recordLevel = 0,
+            _musicPercentage = 100,
+            _sfxPercentage = 100
+        };
+        SaveGameState();
+    }
+
 
     public void SaveGameState()
     {
