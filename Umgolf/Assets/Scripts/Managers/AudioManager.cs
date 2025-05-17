@@ -3,31 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Um manager de 1ª source genérico para áudio. Tentei fazer com que fosse abstrato o suficiente para mover entre projetos.
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoSingleton<AudioManager>
 {
     private AudioSource _audioSource;
-    private static AudioManager _instance;
-    public static AudioManager Instance
+    public override void Awake()
     {
-        get
-        {
-            if (Instance == null)
-            {
-                _instance = new AudioManager();
-            }
-            
-            return _instance;
-        }
-    }
-    // Start is called before the first frame update
-    private void Awake()
-    {
-
+        base.Awake();
         _audioSource.GetComponent<AudioSource>();
-        DontDestroyOnLoad(AudioManager.Instance);
     }
     
-
+    
+    
+    //These methods demonstram overloading do mesmo method com multiple parameters.
     public void PlayAudio(AudioClip audioClip)
     {
         _audioSource.clip = audioClip;

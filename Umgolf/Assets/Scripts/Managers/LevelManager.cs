@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEditor.VersionControl;
 using UnityEngine.Rendering;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoSingleton<LevelManager>
 {
     //The general gist is to, in demand, unload & load new terrain layouts, thus "changing the level" without touching the Scene.
     //This makes it easier to handle new levels as merely new SO configurations, decreases loading periods, and works with less objects over the runtime.
@@ -15,27 +15,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelLayout _nextLevelLayout;
     
     [SerializeField] private SerializedDictionary<int, LevelLayout> _levelLayoutDictionary = new SerializedDictionary<int, LevelLayout>();
-
-    private static LevelManager _instance;
-    public static LevelManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new LevelManager();
-            }
-            return _instance;
-        }
-    }
-    
-    private void Awake()
-    {
-        
-        DontDestroyOnLoad(Instance);
-    }
-    
-
     
     public void ReceiveDictionary(LevelLayout[] levelLayoutCollection)
     {

@@ -5,28 +5,12 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : MonoSingleton<SaveManager>
 {
     private SaveData _saveDataToReceive;
     
-    private static SaveManager _instance;
-    public static SaveManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new SaveManager();
-            }
-            return _instance;
-        }
-    }
     public UnityEvent<SaveData> OnSaveRequestedEvent = new UnityEvent<SaveData>();
     public UnityEvent<SaveData> OnLoadRequestedEvent = new UnityEvent<SaveData>();
-    private void Awake()
-    {
-        DontDestroyOnLoad(_instance);
-    }
     private void Start()
     {
         if (File.Exists(Application.persistentDataPath + "/umgolfsave.json"))
@@ -46,19 +30,22 @@ public class SaveManager : MonoBehaviour
     }
 
 
-    public void SaveGameState()
+    public IEnumerator SaveGameState()
     {
         OnSaveRequestedEvent?.Invoke(_saveDataToReceive);
         string json = JsonUtility.ToJson(_saveDataToReceive);
-        
+
         File.WriteAllText(Application.persistentDataPath + "/umgolfsave.json", json);
+        
+        yield return null;
     }
 
-    public void LoadGameState()
+    public IEnumerator LoadGameState()
     {
         string json = File.ReadAllText(Application.persistentDataPath + "/umgolfsave.json");
         _saveDataToReceive = JsonUtility.FromJson<SaveData>(json);
         OnLoadRequestedEvent?.Invoke(_saveDataToReceive);
+        yield return null;
     }
 
 }

@@ -10,7 +10,6 @@ using UnityEngine.SceneManagement;
 //Used in the Loading screen to initialize everything into who needs it: levels, save file, next 2 scenes.
 public class GameLoader : MonoBehaviour
 {
-    [SerializeField] private LevelLayout[] _levelLayoutArray = null;
 
     [SerializeField] private bool _hasFinishedSaveLoad = false;
     [SerializeField] private bool _hasFinishedLevels = false;
@@ -48,19 +47,20 @@ public class GameLoader : MonoBehaviour
     private IEnumerator LoadLevels()
     {
         LevelLayout[] foundLayouts = Resources.FindObjectsOfTypeAll<LevelLayout>();
-        if (foundLayouts == null)
+        if (foundLayouts == null || foundLayouts.Length == 0)
         {
-            yield return false;
+            yield break;
         }
         
+        LevelLayout[] layoutArray = new LevelLayout[foundLayouts.Length];
         for (int i = 0; i < foundLayouts.Length; ++i)
         {
             ResourceRequest request = Resources.LoadAsync<LevelLayout>(foundLayouts[i].name);
             yield return request; 
-            _levelLayoutArray[i] = request.asset as LevelLayout;
+            layoutArray[i] = request.asset as LevelLayout;
         }
         
-        OnLevelsLoadedEvent?.Invoke(_levelLayoutArray);
+        OnLevelsLoadedEvent?.Invoke(layoutArray);
         yield return true;
         _hasFinishedLevels = true;
     }
@@ -68,10 +68,12 @@ public class GameLoader : MonoBehaviour
 
     private IEnumerator LoadSave()
     {
-        if(File.Exists(Application.persistentDataPath + "/umgolfsave.json"))
-            SaveManager.Instance.LoadGameState();
-        
-        yield return new WaitForEndOfFrame();
+
+        if (File.Exists(Application.persistentDataPath + "/umgolfsave.json"))
+        {
+            yield return SaveManager.Instance.LoadGameState();
+        }
+
         _hasFinishedSaveLoad = true;
     }
     

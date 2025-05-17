@@ -4,20 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class OptionsManager : MonoBehaviour
+public class OptionsManager : MonoSingleton<OptionsManager>
 {
-    private OptionsManager _instance;
-    public OptionsManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new OptionsManager();
-            }
-            return _instance;
-        }
-    }
     
     //Progression Variables
     [SerializeField] private int _coins;
@@ -25,10 +13,6 @@ public class OptionsManager : MonoBehaviour
     [SerializeField] private int _recordLevel;
     [SerializeField] private float _musicPercentage;
     [SerializeField] private float _sfxPercentage;
-    private void Awake()
-    {
-        DontDestroyOnLoad(_instance);
-    }
     
     public void SaveRequested(SaveData saveData)
     {
