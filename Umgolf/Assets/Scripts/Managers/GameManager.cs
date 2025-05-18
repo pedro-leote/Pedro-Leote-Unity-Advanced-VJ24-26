@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    //Per Level Basis
     [SerializeField] private int _availableBalls;
-
+    private int _activeLevelIndex;
+    private int _nextLevelIndex;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+            
     }
 
     // Update is called once per frame
@@ -20,5 +20,14 @@ public class GameManager : MonoSingleton<GameManager>
     {
         
     }
-    
+
+    public void StartGame()
+    {
+        _activeLevelIndex = 0;
+        _nextLevelIndex = 1;
+    }
+    public void SetUpForNextLevel()
+    {
+        
+    }
 }
