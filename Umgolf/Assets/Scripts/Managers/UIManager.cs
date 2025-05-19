@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoSingleton<UIManager>
+public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void SwitchToGame()
     {
-        
+        SceneLoadManager.Instance.SwitchToScene("GameScene", 3);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+}   
+
+

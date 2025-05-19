@@ -12,18 +12,18 @@ public class SceneLoadManager : MonoSingleton<SceneLoadManager>
         //For Title Screen
         AsyncOperation titleOperation = SceneManager.LoadSceneAsync("TitleScreen");
         titleOperation.allowSceneActivation = false;
-        while (!titleOperation.isDone)
-        {
-            yield return null;
-        }
+        //while (!titleOperation.isDone)
+        //{
+        //    yield return null;
+        //}
         _sceneOperations.Add("TitleScreen", titleOperation);
         //For Game screen
         AsyncOperation gameOperation = SceneManager.LoadSceneAsync("GameScene");
         gameOperation.allowSceneActivation = false;
-        while (!gameOperation.isDone)
-        {
-            yield return null;
-        }
+        //while (!gameOperation.isDone)
+        //{
+        //    yield return null;
+        //}
         _sceneOperations.Add("GameScene", gameOperation);
         
         yield return null;
@@ -41,5 +41,20 @@ public class SceneLoadManager : MonoSingleton<SceneLoadManager>
         Debug.Log($"Could not find scene {sceneName}. Loading now...");
         SceneManager.LoadScene(sceneName);
     }
-    
+
+    public void SwitchToScene(string sceneName, float delay)
+    {
+        if (_sceneOperations.TryGetValue(sceneName, out AsyncOperation sceneOperation))
+        {
+            Debug.Log($"Switching to scene {sceneName}");
+            StartCoroutine(SceneLoaderDelay(sceneOperation, delay));
+            return;
+        }
+    }
+
+    private IEnumerator SceneLoaderDelay(AsyncOperation scene, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        scene.allowSceneActivation = true;
+    }
 }

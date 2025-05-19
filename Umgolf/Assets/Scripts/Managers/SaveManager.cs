@@ -7,18 +7,15 @@ using UnityEngine.Events;
 
 public class SaveManager : MonoSingleton<SaveManager>
 {
-    private SaveData _saveDataToReceive;
+    [SerializeField] private SaveData _saveDataToReceive;
     
     public UnityEvent<SaveData> OnSaveRequestedEvent = new UnityEvent<SaveData>();
     public UnityEvent<SaveData> OnLoadRequestedEvent = new UnityEvent<SaveData>();
-    private void Start()
+
+
+    public IEnumerator CreateGameState()
     {
-        if (File.Exists(Application.persistentDataPath + "/umgolfsave.json"))
-        {
-            return;
-        }
-        
-        SaveData freshSave = new SaveData
+        _saveDataToReceive = new SaveData
         {
             _coins = 0,
             _maxBalls = 5,
@@ -26,23 +23,25 @@ public class SaveManager : MonoSingleton<SaveManager>
             _musicPercentage = 100,
             _sfxPercentage = 100
         };
-        SaveGameState();
+        
+        string json = JsonUtility.ToJson(_saveDataToReceive);
+        
+        File.WriteAllText($"{Application.persistentDataPath}/umgolfsave.json", json);
+        yield return null;
     }
-
-
     public IEnumerator SaveGameState()
     {
         OnSaveRequestedEvent?.Invoke(_saveDataToReceive);
         string json = JsonUtility.ToJson(_saveDataToReceive);
-
-        File.WriteAllText(Application.persistentDataPath + "/umgolfsave.json", json);
+        
+        File.WriteAllText($"{Application.persistentDataPath}/umgolfsave.json", json);
         
         yield return null;
     }
 
     public IEnumerator LoadGameState()
     {
-        string json = File.ReadAllText(Application.persistentDataPath + "/umgolfsave.json");
+        string json = File.ReadAllText($"{Application.persistentDataPath}/umgolfsave.json");
         _saveDataToReceive = JsonUtility.FromJson<SaveData>(json);
         OnLoadRequestedEvent?.Invoke(_saveDataToReceive);
         yield return null;

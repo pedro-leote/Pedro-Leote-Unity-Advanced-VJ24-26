@@ -590,11 +590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0685a5dd56bb5c642893c9db77241bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coins: 20
-  _maxBalls: 10
+  _coins: 0
+  _maxBalls: 0
   _recordLevel: 0
-  _musicPercentage: 100
-  _sfxPercentage: 100
+  _musicPercentage: 0
+  _sfxPercentage: 0
 --- !u!4 &1210764289
 Transform:
   m_ObjectHideFlags: 0
@@ -810,9 +810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bbd957af3a1f0c4cb6a49df5529895a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hasFinishedSaveLoad: 0
-  _hasFinishedLevels: 0
-  _hasFinishedScenes: 0
   OnLevelsLoadedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -875,6 +872,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2512639100a45364b8d3c769b058e9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _saveDataToReceive:
+    _coins: 0
+    _recordLevel: 0
+    _maxBalls: 0
+    _musicPercentage: 0
+    _sfxPercentage: 0
   OnSaveRequestedEvent:
     m_PersistentCalls:
       m_Calls:

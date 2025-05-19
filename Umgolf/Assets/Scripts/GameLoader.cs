@@ -10,10 +10,6 @@ using UnityEngine.SceneManagement;
 //Used in the Loading screen to initialize everything into who needs it: levels, save file, next 2 scenes.
 public class GameLoader : MonoBehaviour
 {
-    //Bools de verificação se todos os processos funcionaram.
-    [SerializeField] private bool _hasFinishedSaveLoad = false;
-    [SerializeField] private bool _hasFinishedLevels = false;
-    [SerializeField] private bool _hasFinishedScenes = false;
     
     //Eventos para lançar informação obtida a quem precisar (ex.: LevelManager)
     public UnityEvent<LevelLayout[]> OnLevelsLoadedEvent = new UnityEvent<LevelLayout[]>();
@@ -21,35 +17,28 @@ public class GameLoader : MonoBehaviour
     
     void Start()
     { 
-        StartCoroutine(WaitUntilStartingLoading());
+        StartCoroutine(InitLoading());
     }
-
     
-    void Update()
-    {
-        if (_hasFinishedLevels && _hasFinishedScenes && _hasFinishedSaveLoad)
-        {
-            StopAllCoroutines();
-            SceneLoadManager.Instance.SwitchToScene("TitleScreen");
-        }
-        
-    }
 
-
-    private IEnumerator WaitUntilStartingLoading()
+    private IEnumerator InitLoading()
     {
+        //Initialize all the coroutines needed and wait for their completion.
         yield return new WaitForSeconds(1f);
-        StartCoroutine(LoadSave());
-        StartCoroutine(LoadLevels());
-        StartCoroutine(LoadScenes());
-        
-        StopCoroutine(WaitUntilStartingLoading());
+        yield return StartCoroutine(LoadLevels());
+        yield return StartCoroutine(LoadSave());
+        yield return StartCoroutine(LoadScenes());
+
+        //Catch-all case
+        StopAllCoroutines();
+        //Instruct scene change.
+        SceneLoadManager.Instance.SwitchToScene("TitleScreen");
     }
     
     //No LoadLevels obtenho os SO's presentes no Resources folder, dou parse para um array dando-lhes load, e envio para o Dictionary do LevelManager
     private IEnumerator LoadLevels()
     {
-        LevelLayout[] foundLayouts = Resources.FindObjectsOfTypeAll<LevelLayout>(); //Obtemos os SOs dentro do Resources folder, sem subfolders.
+        LevelLayout[] foundLayouts = Resources.LoadAll<LevelLayout>(""); //Obtemos os SOs dentro do Resources folder, sem subfolders.
         if (foundLayouts == null || foundLayouts.Length == 0)
         {
             yield break; // Se não houver nada, não posso fazer nada lol
@@ -64,31 +53,31 @@ public class GameLoader : MonoBehaviour
             yield return request; //Esperamos até o load terminar.
             layoutArray[i] = request.asset as LevelLayout; //E metemos como LevelLayout.
         }
-        //Anteriormente este código dava IndexOutOfRangeException, mas agora parece funcionar bem.
         
-        OnLevelsLoadedEvent?.Invoke(layoutArray); // O problema situa-se neste evento, pois o listener é o LevelManager que depois 
-                                                  // transforma o array obtido em entries do seu SerializableDictionary. Mas não tem funcionado.
+        OnLevelsLoadedEvent?.Invoke(layoutArray);
         yield return true;
-        _hasFinishedLevels = true;
+        Debug.Log($"Finished Level Load operation with {layoutArray.Length} levels.");
     }
     
     //No LoadSave, procuro o .json e chamo o LoadGameState do SaveManager, obtendo a info necessária deste documento.
     private IEnumerator LoadSave()
     {
-
-        if (File.Exists(Application.persistentDataPath + "/umgolfsave.json"))
+        if (File.Exists($"{Application.persistentDataPath}/umgolfsave.json"))
         {
-            yield return SaveManager.Instance.LoadGameState();
+            yield return StartCoroutine(SaveManager.Instance.LoadGameState());
+            Debug.Log("Found save. Loaded.");
+            yield break;
         }
 
-        _hasFinishedSaveLoad = true;
+        Debug.Log("No file found.");
+        yield return StartCoroutine(SaveManager.Instance.CreateGameState());
     }
     
     //No LoadScenes chamo o SceneLoadManager para dar async load das únicas 2 scenes que preciso.
     private IEnumerator LoadScenes()
     {
-        yield return SceneLoadManager.Instance.LoadScenes(); //Aqui o loading async das scenes, pelo menos no Editor, nunca parece acabar. Estranho
+        yield return StartCoroutine(SceneLoadManager.Instance.LoadScenes()); //Aqui o loading async das scenes, pelo menos no Editor, nunca parece acabar. Estranho
         OnScenesLoadedEvent?.Invoke();
-        _hasFinishedScenes = true;
+        Debug.Log("Finished LoadScene operation.");
     }
 }
