@@ -2,26 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VFXManager : MonoBehaviour
+public class VFXManager : MonoSingleton<VFXManager>
 {
     [SerializeField] private GameObject _bounceVFX;
 
     private List<GameObject> _bounceVFXPool = new List<GameObject>();
     [SerializeField] private int _bouncePoolSize = 4;
-    private static VFXManager _instance;
-    public static VFXManager Instance
-    {
-    	get
-    	{
-    		if (_instance == null)
-    		{
-    			_instance = new VFXManager();
-    		}
-    
-    		return _instance;
-    	}
-    }
-
     private void Start()
     {
         for (int i = 0; i < _bouncePoolSize; ++i)

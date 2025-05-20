@@ -52,10 +52,42 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private GameObject StartLoading(LevelLayout levelLayout)
     {
-        GameObject _instantiatedParent = new GameObject();
-                
+        GameObject instantiatedParent = new GameObject();
+        instantiatedParent.name = levelLayout._levelParentObject._name;
+
+        for (int i = 0; i < levelLayout._levelObjects.Count; ++i)
+        {
+            GameObject childGenericObject = new GameObject
+            {
+                name = levelLayout._levelObjects[i]._name,
+                transform =
+                {
+                    position = levelLayout._levelObjects[i]._position,
+                    rotation = levelLayout._levelObjects[i]._rotation,
+                    localScale = levelLayout._levelObjects[i]._scale,
+                }
+            };
+            childGenericObject.AddComponent<SpriteRenderer>();
+            childGenericObject.GetComponent<SpriteRenderer>().color = levelLayout._levelObjects[i]._spriteRendererColor;
+            childGenericObject.GetComponent<SpriteRenderer>().sortingOrder = levelLayout._levelObjects[i]._spriteRendererLayer;
+            
+            childGenericObject.AddComponent<BoxCollider2D>();
+            childGenericObject.GetComponent<BoxCollider2D>().size = levelLayout._levelObjects[i]._collider2DSize;
+            
+            childGenericObject.transform.parent = instantiatedParent.transform;
+        }
+
+        for (int i = 0; i < levelLayout._levelPrefabs.Count; ++i)
+        {
+            GameObject childPrefabObject = Instantiate(levelLayout._levelPrefabs[i]._prefab);
+            childPrefabObject.transform.position = levelLayout._levelPrefabs[i]._position;
+            childPrefabObject.transform.rotation = levelLayout._levelPrefabs[i]._rotation;
+            childPrefabObject.transform.localScale = levelLayout._levelPrefabs[i]._scale;
+            
+            childPrefabObject.transform.parent = instantiatedParent.transform;
+        }
         
-        return null; // Temp
+        return instantiatedParent; // Temp
     }
     
 }
