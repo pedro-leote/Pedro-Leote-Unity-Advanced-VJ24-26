@@ -16,6 +16,8 @@ public class LevelManager : MonoSingleton<LevelManager>
     
     [SerializeField] private SerializedDictionary<int, LevelLayout> _levelLayoutDictionary = new SerializedDictionary<int, LevelLayout>();
     
+    private List<GameObject> _genericObjectList = new List<GameObject>();
+    
     public void ReceiveDictionary(LevelLayout[] levelLayoutCollection)
     {
         for (int i = 0; i < levelLayoutCollection.Length; ++i)
@@ -54,27 +56,23 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         GameObject instantiatedParent = new GameObject();
         instantiatedParent.name = levelLayout._levelParentObject._name;
-
+        
+        //Grab object pool from Level Builder
+        _genericObjectList = LevelBuilder.Instance.GrabPool();
+        
         for (int i = 0; i < levelLayout._levelObjects.Count; ++i)
         {
-            GameObject childGenericObject = new GameObject
-            {
-                name = levelLayout._levelObjects[i]._name,
-                transform =
-                {
-                    position = levelLayout._levelObjects[i]._position,
-                    rotation = levelLayout._levelObjects[i]._rotation,
-                    localScale = levelLayout._levelObjects[i]._scale,
-                }
-            };
-            childGenericObject.AddComponent<SpriteRenderer>();
-            childGenericObject.GetComponent<SpriteRenderer>().color = levelLayout._levelObjects[i]._spriteRendererColor;
-            childGenericObject.GetComponent<SpriteRenderer>().sortingOrder = levelLayout._levelObjects[i]._spriteRendererLayer;
+            _genericObjectList[i].transform.position = levelLayout._levelObjects[i]._position;
+            _genericObjectList[i].transform.rotation = levelLayout._levelObjects[i]._rotation;
+            _genericObjectList[i].transform.localScale = levelLayout._levelObjects[i]._scale;
             
-            childGenericObject.AddComponent<BoxCollider2D>();
-            childGenericObject.GetComponent<BoxCollider2D>().size = levelLayout._levelObjects[i]._collider2DSize;
+            _genericObjectList[i].GetComponent<SpriteRenderer>().color = levelLayout._levelObjects[i]._spriteRendererColor;
+            _genericObjectList[i].GetComponent<SpriteRenderer>().sortingOrder = levelLayout._levelObjects[i]._spriteRendererLayer;
             
-            childGenericObject.transform.parent = instantiatedParent.transform;
+            _genericObjectList[i].GetComponent<BoxCollider2D>().size = levelLayout._levelObjects[i]._collider2DSize;
+            
+            _genericObjectList[i].transform.parent = instantiatedParent.transform;
+            
         }
 
         for (int i = 0; i < levelLayout._levelPrefabs.Count; ++i)
