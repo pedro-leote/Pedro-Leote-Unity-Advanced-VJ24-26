@@ -12,6 +12,7 @@ public class LevelObjectData
     public Quaternion _rotation;
     public Vector3 _scale;
 	//Collider Data
+	public bool _collider2DState;
     public Vector2 _collider2DSize;
 	//Sprite Renderer Data
     public Color _spriteRendererColor;

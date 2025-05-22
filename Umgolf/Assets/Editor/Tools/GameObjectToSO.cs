@@ -29,7 +29,9 @@ public class GameObjectToSO : EditorWindow
             _rotation = selectedGameObject.transform.rotation,
             _scale = selectedGameObject.transform.localScale,
             //Estas linhas demonstram o uso de conditional check ao atribuir uma variável, que dá replace a um if(Try...) -> _boxCollider = collider, else() -> null; Assim fica numa sentence.
-            _collider2DSize = selectedGameObject.TryGetComponent<Collider2D>(out Collider2D collider) ? collider.bounds.size : Vector2.zero,
+            
+            _collider2DState = selectedGameObject.TryGetComponent<Collider2D>(out Collider2D collider) && collider.enabled,
+            _collider2DSize = selectedGameObject.TryGetComponent<Collider2D>(out Collider2D collider2) ? collider2.bounds.size : Vector2.zero,
             _spriteRendererColor = selectedGameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer) ? spriteRenderer.color : Color.black,
             _spriteRendererLayer = selectedGameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer2) ? spriteRenderer2.sortingOrder : 0,
         };
@@ -58,7 +60,8 @@ public class GameObjectToSO : EditorWindow
                     _position = selectedGameObject.transform.GetChild(i).localPosition,
                     _rotation = selectedGameObject.transform.GetChild(i).localRotation,
                     _scale = selectedGameObject.transform.GetChild(i).localScale,
-                    _collider2DSize = selectedGameObject.transform.GetChild(i).TryGetComponent<Collider2D>(out Collider2D childCollider2D) ? childCollider2D.bounds.size : Vector2.zero,
+                    _collider2DState = selectedGameObject.transform.GetChild(i).TryGetComponent<Collider2D>(out Collider2D childCollider) && childCollider.enabled,
+                    _collider2DSize = selectedGameObject.transform.GetChild(i).TryGetComponent<Collider2D>(out Collider2D childCollider2) ? childCollider2.bounds.size : Vector2.zero,
                     _spriteRendererColor = selectedGameObject.transform.GetChild(i).TryGetComponent<SpriteRenderer>(out SpriteRenderer childSpriteRenderer) ? childSpriteRenderer.color : Color.black,
                     _spriteRendererLayer = selectedGameObject.transform.GetChild(i).TryGetComponent<SpriteRenderer>(out SpriteRenderer childSpriteRenderer2) ? childSpriteRenderer2.sortingOrder : 0
                 });

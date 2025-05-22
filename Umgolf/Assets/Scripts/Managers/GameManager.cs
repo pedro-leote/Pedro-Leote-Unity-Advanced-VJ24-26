@@ -41,8 +41,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public IEnumerator SetUpFirstLevel()
     {
-        _currentLevelObject = LevelManager.Instance.GrabLevelData(0);
         yield return new WaitForEndOfFrame();
+        _currentLevelObject = LevelManager.Instance.GrabLevelData(0);
         _currentLevelObject.SetActive(true);
         _currentLevelObject.transform.position = Vector3.zero;
         
@@ -55,6 +55,8 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public IEnumerator SetUpForNextLevel()
     {   
+        OnLevelChangeEvent?.Invoke();
+        yield return new WaitForSeconds(0.5f);
         _nextLevelObject = LevelManager.Instance.GrabLevelData(_nextLevelIndex);
         if (_nextLevelObject == null)
         {
@@ -62,7 +64,7 @@ public class GameManager : MonoSingleton<GameManager>
             yield break;       
         }
         
-        OnLevelChangeEvent?.Invoke();
+
         _nextLevelObject.transform.position = new Vector3(6, 0, 0);
         
         yield return new WaitForSeconds(2f);

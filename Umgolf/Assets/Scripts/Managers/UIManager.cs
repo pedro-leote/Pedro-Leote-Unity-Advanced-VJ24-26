@@ -7,9 +7,15 @@ public class UIManager : MonoBehaviour
     
     public void SwitchToGame()
     {
-        SceneLoadManager.Instance.SwitchToScene("GameScene", 3);
+        StartCoroutine(GameSwitch());
     }
 
+    private IEnumerator GameSwitch()
+    {
+        yield return SceneLoadManager.Instance.LoadScene("GameScene");
+        SceneLoadManager.Instance.SwitchToScene("GameScene", 1);
+    }
+    
     public void StartTransitionAnimation(Animator animator)
     {
         animator.SetTrigger("FadeIn");

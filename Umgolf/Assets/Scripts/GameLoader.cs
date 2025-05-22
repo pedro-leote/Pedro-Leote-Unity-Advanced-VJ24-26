@@ -76,7 +76,7 @@ public class GameLoader : MonoBehaviour
     //No LoadScenes chamo o SceneLoadManager para dar async load das únicas 2 scenes que preciso.
     private IEnumerator LoadScenes()
     {
-        yield return StartCoroutine(SceneLoadManager.Instance.LoadScenes()); //Aqui o loading async das scenes, pelo menos no Editor, nunca parece acabar. Estranho
+        yield return StartCoroutine(SceneLoadManager.Instance.LoadScene("TitleScreen"));
         OnScenesLoadedEvent?.Invoke();
         Debug.Log("Finished LoadScene operation.");
     }

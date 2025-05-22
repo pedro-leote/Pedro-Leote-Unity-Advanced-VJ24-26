@@ -7,25 +7,11 @@ public class SceneLoadManager : MonoSingleton<SceneLoadManager>
 {
     private Dictionary<string, AsyncOperation> _sceneOperations = new Dictionary<string, AsyncOperation>();
     
-    public IEnumerator LoadScenes()
+    public IEnumerator LoadScene(string sceneName)
     {
-        //For Title Screen
-        AsyncOperation titleOperation = SceneManager.LoadSceneAsync("TitleScreen");
-        titleOperation.allowSceneActivation = false;
-        //while (!titleOperation.isDone)
-        //{
-        //    yield return null;
-        //}
-        _sceneOperations.Add("TitleScreen", titleOperation);
-        //For Game screen
-        AsyncOperation gameOperation = SceneManager.LoadSceneAsync("GameScene");
-        gameOperation.allowSceneActivation = false;
-        //while (!gameOperation.isDone)
-        //{
-        //    yield return null;
-        //}
-        _sceneOperations.Add("GameScene", gameOperation);
-        
+        AsyncOperation sceneOperation = SceneManager.LoadSceneAsync(sceneName);
+        sceneOperation.allowSceneActivation = false;
+        _sceneOperations.Add(sceneName, sceneOperation);
         yield return null;
     }
 

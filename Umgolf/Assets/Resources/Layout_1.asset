@@ -16,10 +16,11 @@ MonoBehaviour:
   _ballPosition: {x: 0, y: 0, z: 0}
   _holePosition: {x: 0, y: 0, z: 0}
   _levelParentObject:
-    _name: Level Layout (3)
-    _position: {x: -4.34, y: 0, z: 0}
+    _name: Level Layout (2)
+    _position: {x: -4.95, y: 0, z: 0}
     _rotation: {x: 0, y: 0, z: 0, w: 1}
     _scale: {x: 1, y: 1, z: 1}
+    _collider2DState: 0
     _collider2DSize: {x: 0, y: 0}
     _spriteRendererColor: {r: 0, g: 0, b: 0, a: 1}
     _spriteRendererLayer: 0
@@ -27,43 +28,57 @@ MonoBehaviour:
   - _name: Square
     _position: {x: 0, y: 0, z: 0}
     _rotation: {x: -0, y: -0, z: -0, w: 1}
-    _scale: {x: 2.9770482, y: 7.5901756, z: 1}
-    _collider2DSize: {x: 2.977048, y: 7.5901756}
+    _scale: {x: 3.652853, y: 8.446841, z: 1.1414}
+    _collider2DState: 0
+    _collider2DSize: {x: 0, y: 0}
     _spriteRendererColor: {r: 0.24757773, g: 0.5283019, b: 0.22178711, a: 1}
     _spriteRendererLayer: 0
   - _name: Square (1)
-    _position: {x: -1.63, y: -0.0075, z: 0}
+    _position: {x: -1.979, y: 0.0029, z: 0}
     _rotation: {x: -0, y: -0, z: -0, w: 1}
-    _scale: {x: 0.31, y: 7.585512, z: 1}
-    _collider2DSize: {x: 0.31000042, y: 7.585512}
-    _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
-    _spriteRendererLayer: 3
-  - _name: Square (5)
-    _position: {x: 0, y: 0, z: 0}
-    _rotation: {x: -0, y: -0, z: -0, w: 1}
-    _scale: {x: 1.2685572, y: 0.4109178, z: 1}
-    _collider2DSize: {x: 1.2685573, y: 0.4109178}
+    _scale: {x: 0.31, y: 9.041247, z: 1}
+    _collider2DState: 1
+    _collider2DSize: {x: 0.31000042, y: 9.041247}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
     _spriteRendererLayer: 3
   - _name: Square (3)
-    _position: {x: 0.0115, y: 3.949, z: 0}
+    _position: {x: -0.019, y: 4.37, z: 0}
     _rotation: {x: -0, y: -0, z: -0, w: 1}
-    _scale: {x: 3.5843215, y: 0.31, z: 1}
-    _collider2DSize: {x: 3.5843213, y: 0.31000018}
+    _scale: {x: 3.69162, y: 0.31, z: 1}
+    _collider2DState: 1
+    _collider2DSize: {x: 3.6916199, y: 0.31000042}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
-    _spriteRendererLayer: 0
+    _spriteRendererLayer: 3
   - _name: Square (4)
-    _position: {x: 0.0137, y: -3.928675, z: 0}
+    _position: {x: -0.0125, y: -4.36, z: 0}
     _rotation: {x: -0, y: -0, z: -0, w: 1}
-    _scale: {x: 3.59724, y: 0.31, z: 1}
-    _collider2DSize: {x: 3.5972397, y: 0.30999994}
+    _scale: {x: 3.6908226, y: 0.31, z: 1}
+    _collider2DState: 1
+    _collider2DSize: {x: 3.6908226, y: 0.31000042}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
-    _spriteRendererLayer: 0
-  - _name: Square (2)
-    _position: {x: 1.648, y: 0.021325229, z: 0}
+    _spriteRendererLayer: 3
+  - _name: Square (5)
+    _position: {x: -0.0125, y: -1.18, z: 0}
     _rotation: {x: -0, y: -0, z: -0, w: 1}
-    _scale: {x: 0.31, y: 7.5901756, z: 1}
-    _collider2DSize: {x: 0.30999994, y: 7.5901756}
+    _scale: {x: 1.7992761, y: 0.31, z: 1}
+    _collider2DState: 1
+    _collider2DSize: {x: 1.7992764, y: 0.30999994}
+    _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
+    _spriteRendererLayer: 3
+  - _name: Square (6)
+    _position: {x: -0.0125, y: 1.27, z: 0}
+    _rotation: {x: -0, y: -0, z: -0, w: 1}
+    _scale: {x: 1.7992761, y: 0.31, z: 1}
+    _collider2DState: 1
+    _collider2DSize: {x: 1.7992764, y: 0.30999994}
+    _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
+    _spriteRendererLayer: 3
+  - _name: Square (2)
+    _position: {x: 1.977, y: 0.0044, z: 0}
+    _rotation: {x: -0, y: -0, z: -0, w: 1}
+    _scale: {x: 0.31, y: 9.046902, z: 1}
+    _collider2DState: 1
+    _collider2DSize: {x: 0.30999994, y: 9.046902}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
     _spriteRendererLayer: 2
   _levelPrefabs: []

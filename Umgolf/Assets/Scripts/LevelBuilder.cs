@@ -15,7 +15,6 @@ public class LevelBuilder : MonoSingleton<LevelBuilder>
     void Start()
     {
         CreateGenericPool();
-
     }
 
     public void CreateGenericPool()

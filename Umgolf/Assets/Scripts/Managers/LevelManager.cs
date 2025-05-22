@@ -69,6 +69,7 @@ public class LevelManager : MonoSingleton<LevelManager>
             _genericObjectList[i].GetComponent<SpriteRenderer>().color = levelLayout._levelObjects[i]._spriteRendererColor;
             _genericObjectList[i].GetComponent<SpriteRenderer>().sortingOrder = levelLayout._levelObjects[i]._spriteRendererLayer;
             
+            _genericObjectList[i].GetComponent<BoxCollider2D>().enabled = levelLayout._levelObjects[i]._collider2DState;
             _genericObjectList[i].GetComponent<BoxCollider2D>().size = levelLayout._levelObjects[i]._collider2DSize;
             
             _genericObjectList[i].transform.parent = instantiatedParent.transform;
