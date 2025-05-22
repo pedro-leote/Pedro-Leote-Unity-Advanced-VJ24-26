@@ -12,10 +12,14 @@ public class UIManager : MonoBehaviour
 
     public void StartTransitionAnimation(Animator animator)
     {
-        animator.SetTrigger("Start");
+        animator.SetTrigger("FadeIn");
         
     }
-    
+
+    public void EndTransitionAnimation(Animator animator)
+    {
+        animator.SetTrigger("FadeOut");
+    }
 }   
 
 

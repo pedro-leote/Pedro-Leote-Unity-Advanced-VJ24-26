@@ -12,12 +12,18 @@ public class GameManager : MonoSingleton<GameManager>
     
     private GameObject _currentLevelObject;
     private GameObject _nextLevelObject;
-
-    public UnityEvent<int> OnLevelChangeEvent = new UnityEvent<int>();
+    
+    
+    public UnityEvent OnGameStartingEvent = new UnityEvent();
+    public UnityEvent OnGameReadyEvent = new UnityEvent();
+    public UnityEvent OnLevelChangeEvent = new UnityEvent();
+    public UnityEvent OnLevelReadyEvent = new UnityEvent();
     // Start is called before the first frame update
     void Start()
     {
-            
+        OnGameStartingEvent?.Invoke();
+        //All the Startup logic.
+        StartGame();
     }
 
     // Update is called once per frame
@@ -30,6 +36,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         _activeLevelIndex = 0;
         _nextLevelIndex = 1;
+        StartCoroutine(SetUpFirstLevel());
     }
 
     public IEnumerator SetUpFirstLevel()
@@ -38,6 +45,8 @@ public class GameManager : MonoSingleton<GameManager>
         yield return new WaitForEndOfFrame();
         _currentLevelObject.SetActive(true);
         _currentLevelObject.transform.position = Vector3.zero;
+        
+        OnGameReadyEvent?.Invoke();
     }
 
     public void SetupLevelWrapper()
@@ -53,16 +62,16 @@ public class GameManager : MonoSingleton<GameManager>
             yield break;       
         }
         
-        OnLevelChangeEvent?.Invoke(_nextLevelIndex);
+        OnLevelChangeEvent?.Invoke();
         _nextLevelObject.transform.position = new Vector3(6, 0, 0);
-        
         
         yield return new WaitForSeconds(2f);
         _nextLevelIndex++;
         _activeLevelIndex++;
         _nextLevelObject.SetActive(true);
         _nextLevelObject.transform.position = Vector3.zero;
-        //Call LevelManager and receive Object
+        
+        OnLevelReadyEvent?.Invoke();
     }
 
     public void EndGame()

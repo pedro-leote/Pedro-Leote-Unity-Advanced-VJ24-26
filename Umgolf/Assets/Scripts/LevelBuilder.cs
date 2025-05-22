@@ -43,7 +43,6 @@ public class LevelBuilder : MonoSingleton<LevelBuilder>
         {
             Debug.Log("Did not find object pool. Creating...");
             CreateGenericPool();
-            return _genericPool;
         }
         
         return _genericPool;

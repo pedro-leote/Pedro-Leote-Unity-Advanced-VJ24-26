@@ -49,7 +49,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     public void UnloadLevelData(GameObject levelObject)
     {
         //TODO: Detect poolable entries and send them back to usable state
-        
+        //actually. why do I need this
     }
 
     private GameObject StartLoading(LevelLayout levelLayout)
@@ -85,7 +85,7 @@ public class LevelManager : MonoSingleton<LevelManager>
             childPrefabObject.transform.parent = instantiatedParent.transform;
         }
         
-        return instantiatedParent; // Temp
+        return instantiatedParent;
     }
     
 }
