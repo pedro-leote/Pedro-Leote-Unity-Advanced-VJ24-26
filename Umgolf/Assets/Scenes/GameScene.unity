@@ -1964,7 +1964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ba731ed4da09c4a8606b685a4e92c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _genericPoolSize: 8
+  _genericPoolSize: 12
   _genericPool: []
   _genericObjSprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
   _genericObjMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}

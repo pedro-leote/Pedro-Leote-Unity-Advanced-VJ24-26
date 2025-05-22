@@ -25,19 +25,6 @@ public class BallHandling : MonoBehaviour
     [SerializeField] Vector2 _currentTouchPosition;
     [SerializeField] Vector2 _distanceFromBall;
     
-    private static BallHandling _instance;
-    public static BallHandling Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new BallHandling();
-            }
-            return _instance;
-        }
-    }
-    
     private void OnEnable()
     {
         _holdAction.action.Enable();

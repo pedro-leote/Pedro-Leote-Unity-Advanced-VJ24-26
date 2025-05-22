@@ -39,6 +39,10 @@ public class VFXManager : MonoSingleton<VFXManager>
     public IEnumerator BounceVFX(Vector2 collisionPoint)
     {
         GameObject bounceVFX = GetBounceVFX();
+        if (bounceVFX == null)
+        {
+            yield break;
+        }
         bounceVFX.transform.position = new Vector3(collisionPoint.x, collisionPoint.y, 0);
         bounceVFX?.SetActive(true);
         bounceVFX.GetComponent<ParticleSystem>()?.Play();

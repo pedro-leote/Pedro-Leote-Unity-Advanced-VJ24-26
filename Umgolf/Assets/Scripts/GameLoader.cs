@@ -45,19 +45,35 @@ public class GameLoader : MonoBehaviour
         }
         
         //Damos init a um array com o tamanho de todos os níveis encontrados.
+        List<Coroutine> levelLoadingCoroutines = new List<Coroutine>();
+        
         LevelLayout[] layoutArray = new LevelLayout[foundLayouts.Length];
         for (int i = 0; i < foundLayouts.Length; ++i)
         {
-            //Fazemos request de load a cada um destes SO's para não esperar later no jogo.
+            //TODO: This can be put into a coroutine which loads all layouts at once.
             ResourceRequest request = Resources.LoadAsync<LevelLayout>(foundLayouts[i].name);
             yield return request; //Esperamos até o load terminar.
             layoutArray[i] = request.asset as LevelLayout; //E metemos como LevelLayout.
+            
+            levelLoadingCoroutines.Add(StartCoroutine(RequestLoadLevels(layoutArray[i])));
         }
+
+        //for (int i = 0; i < levelLoadingCoroutines.Count; ++i)
+        //{
+        //    yield return levelLoadingCoroutines[i];
+        //}
         
         OnLevelsLoadedEvent?.Invoke(layoutArray);
         yield return true;
         Debug.Log($"Finished Level Load operation with {layoutArray.Length} levels.");
     }
+
+    private IEnumerator RequestLoadLevels(LevelLayout layout)
+    {
+        ResourceRequest request = Resources.LoadAsync<LevelLayout>(layout.name);
+        yield return request.asset as LevelLayout;
+    }
+    
     
     //No LoadSave, procuro o .json e chamo o LoadGameState do SaveManager, obtendo a info necessária deste documento.
     private IEnumerator LoadSave()
