@@ -17,11 +17,11 @@ MonoBehaviour:
   _holePosition: {x: 0, y: 0, z: 0}
   _levelParentObject:
     _name: Level Layout (1)
-    _position: {x: 0, y: 0, z: 0}
+    _position: {x: -4.91, y: -9.58, z: 0}
     _rotation: {x: 0, y: 0, z: 0, w: 1}
     _scale: {x: 1, y: 1, z: 1}
     _collider2DState: 0
-    _collider2DSize: {x: 0, y: 0}
+    _collider2DSize: {x: 1, y: 1}
     _spriteRendererColor: {r: 0, g: 0, b: 0, a: 1}
     _spriteRendererLayer: 0
   _levelObjects:
@@ -30,7 +30,7 @@ MonoBehaviour:
     _rotation: {x: -0, y: -0, z: -0, w: 1}
     _scale: {x: 3.652853, y: 8.446841, z: 1.1414}
     _collider2DState: 0
-    _collider2DSize: {x: 0, y: 0}
+    _collider2DSize: {x: 1, y: 1}
     _spriteRendererColor: {r: 0.24757773, g: 0.5283019, b: 0.22178711, a: 1}
     _spriteRendererLayer: 0
   - _name: Square (1)
@@ -38,7 +38,7 @@ MonoBehaviour:
     _rotation: {x: -0, y: -0, z: -0, w: 1}
     _scale: {x: 0.31, y: 9.041247, z: 1}
     _collider2DState: 1
-    _collider2DSize: {x: 0.31000006, y: 9.041247}
+    _collider2DSize: {x: 1, y: 1}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
     _spriteRendererLayer: 3
   - _name: Square (3)
@@ -46,7 +46,7 @@ MonoBehaviour:
     _rotation: {x: -0, y: -0, z: -0, w: 1}
     _scale: {x: 3.69162, y: 0.31, z: 1}
     _collider2DState: 1
-    _collider2DSize: {x: 3.69162, y: 0.31000042}
+    _collider2DSize: {x: 1, y: 1}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
     _spriteRendererLayer: 3
   - _name: Square (4)
@@ -54,7 +54,7 @@ MonoBehaviour:
     _rotation: {x: -0, y: -0, z: -0, w: 1}
     _scale: {x: 3.6908226, y: 0.31, z: 1}
     _collider2DState: 1
-    _collider2DSize: {x: 3.6908226, y: 0.31000042}
+    _collider2DSize: {x: 1, y: 1}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
     _spriteRendererLayer: 3
   - _name: Square (2)
@@ -62,7 +62,7 @@ MonoBehaviour:
     _rotation: {x: -0, y: -0, z: -0, w: 1}
     _scale: {x: 0.31, y: 9.046902, z: 1}
     _collider2DState: 1
-    _collider2DSize: {x: 0.30999994, y: 9.046902}
+    _collider2DSize: {x: 1, y: 1}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
     _spriteRendererLayer: 2
   _levelPrefabs: []
