@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator GameSwitch()
     {
+        //Wait for animation to arrive
+        yield return new WaitForSeconds(0.9f);
         yield return SceneLoadManager.Instance.LoadScene("GameScene");
         SceneLoadManager.Instance.SwitchToScene("GameScene", 1);
     }

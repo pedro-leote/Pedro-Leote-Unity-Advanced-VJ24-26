@@ -56,7 +56,8 @@ public class GameManager : MonoSingleton<GameManager>
     public IEnumerator SetUpForNextLevel()
     {   
         OnLevelChangeEvent?.Invoke();
-        yield return new WaitForSeconds(0.5f);
+        //Wait for the animation to hide screen
+        yield return new WaitForSeconds(0.8f);
         _nextLevelObject = LevelManager.Instance.GrabLevelData(_nextLevelIndex);
         if (_nextLevelObject == null)
         {
