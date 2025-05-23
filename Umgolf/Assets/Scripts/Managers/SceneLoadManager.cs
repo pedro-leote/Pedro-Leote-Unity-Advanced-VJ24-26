@@ -19,12 +19,11 @@ public class SceneLoadManager : MonoSingleton<SceneLoadManager>
     {
         if (_sceneOperations.TryGetValue(sceneName, out AsyncOperation sceneOperation))
         {
-            Debug.Log($"Switching to scene {sceneName}");
+
             sceneOperation.allowSceneActivation = true;
             return;
         }
         
-        Debug.Log($"Could not find scene {sceneName}. Loading now...");
         SceneManager.LoadScene(sceneName);
     }
 
@@ -32,7 +31,6 @@ public class SceneLoadManager : MonoSingleton<SceneLoadManager>
     {
         if (_sceneOperations.TryGetValue(sceneName, out AsyncOperation sceneOperation))
         {
-            Debug.Log($"Switching to scene {sceneName}");
             StartCoroutine(SceneLoaderDelay(sceneOperation, delay));
             return;
         }

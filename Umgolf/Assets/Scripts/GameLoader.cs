@@ -65,7 +65,6 @@ public class GameLoader : MonoBehaviour
         
         OnLevelsLoadedEvent?.Invoke(layoutArray);
         yield return true;
-        Debug.Log($"Finished Level Load operation with {layoutArray.Length} levels.");
     }
 
     private IEnumerator RequestLoadLevels(LevelLayout layout)
@@ -81,11 +80,11 @@ public class GameLoader : MonoBehaviour
         if (File.Exists($"{Application.persistentDataPath}/umgolfsave.json"))
         {
             yield return StartCoroutine(SaveManager.Instance.LoadGameState());
-            Debug.Log("Found save. Loaded.");
+
             yield break;
         }
 
-        Debug.Log("No file found.");
+
         yield return StartCoroutine(SaveManager.Instance.CreateGameState());
     }
     
@@ -94,6 +93,6 @@ public class GameLoader : MonoBehaviour
     {
         yield return StartCoroutine(SceneLoadManager.Instance.LoadScene("TitleScreen"));
         OnScenesLoadedEvent?.Invoke();
-        Debug.Log("Finished LoadScene operation.");
+
     }
 }

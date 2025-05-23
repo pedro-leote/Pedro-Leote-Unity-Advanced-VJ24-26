@@ -36,7 +36,6 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         if (!_levelLayoutDictionary.ContainsKey(levelIndex))
         {
-            Debug.Log("Could not find given level index. Quitting.");
             return null;
             
         }
