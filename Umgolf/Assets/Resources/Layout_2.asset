@@ -81,14 +81,6 @@ MonoBehaviour:
     _collider2DSize: {x: 1, y: 1}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
     _spriteRendererLayer: 3
-  - _name: Square (9)
-    _position: {x: 0, y: 3.8655, z: 0}
-    _rotation: {x: 0, y: 0, z: 0, w: 1}
-    _scale: {x: 1.261603, y: 0.73299503, z: 1}
-    _collider2DState: 1
-    _collider2DSize: {x: 1, y: 1}
-    _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
-    _spriteRendererLayer: 3
   - _name: Square (8)
     _position: {x: -0.73, y: 3.5792, z: 0}
     _rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
@@ -104,5 +96,5 @@ MonoBehaviour:
     _collider2DState: 1
     _collider2DSize: {x: 1, y: 1}
     _spriteRendererColor: {r: 0.13438557, g: 0.33962262, b: 0.014417935, a: 1}
-    _spriteRendererLayer: 2
+    _spriteRendererLayer: 3
   _levelPrefabs: []

@@ -18,6 +18,7 @@ public class GameManager : MonoSingleton<GameManager>
     public UnityEvent OnGameReadyEvent = new UnityEvent();
     public UnityEvent OnLevelChangeEvent = new UnityEvent();
     public UnityEvent OnLevelReadyEvent = new UnityEvent();
+    public UnityEvent OnGameWonEvent = new UnityEvent();
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +80,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void EndGame()
     {
-        
+        OnGameWonEvent?.Invoke();
     }
 }

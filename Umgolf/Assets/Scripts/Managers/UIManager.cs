@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Game Scene UI Elements")]
+    [SerializeField] private GameObject _levelCountText;
+    [SerializeField] private GameObject _coinCountText;
+    [SerializeField] private GameObject _ballCountText;
+    
+    
     
     public void SwitchToGame()
     {

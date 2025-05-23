@@ -130,4 +130,11 @@ public class BallHandling : MonoBehaviour
         _holdAction.action.Disable();
         //_holdButtonAction.action.Disable();
     }
+
+	//Helper Functions
+	public void ReturnBallToBase()
+    {
+        transform.position = _startingBallPosition;
+    }	
+
 }
