@@ -6,9 +6,11 @@ using UnityEngine.Events;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    //Slight bug incoveniencing me so this is a quick fix so I can ship this off
+    private bool _isWorking;
+    
     [SerializeField] private int _availableBalls;
-    private int _activeLevelIndex;
-    private int _nextLevelIndex;
+    [SerializeField] private int _activeLevelIndex;
     
     private GameObject _currentLevelObject;
     private GameObject _nextLevelObject;
@@ -36,7 +38,6 @@ public class GameManager : MonoSingleton<GameManager>
     public void StartGame()
     {
         _activeLevelIndex = 0;
-        _nextLevelIndex = 1;
         StartCoroutine(SetUpFirstLevel());
     }
 
@@ -52,14 +53,23 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void SetupLevelWrapper()
     {
+        if (_isWorking)
+        {
+            return;
+        }
+
         StartCoroutine(SetUpForNextLevel());
     }
     public IEnumerator SetUpForNextLevel()
-    {   
+    {
+        _isWorking = true;
+        
         OnLevelChangeEvent?.Invoke();
         //Wait for the animation to hide screen
         yield return new WaitForSeconds(0.8f);
-        _nextLevelObject = LevelManager.Instance.GrabLevelData(_nextLevelIndex);
+        
+        int nextLevelIndex = _activeLevelIndex + 1;
+        _nextLevelObject = LevelManager.Instance.GrabLevelData(nextLevelIndex);
         if (_nextLevelObject == null)
         {
             EndGame();
@@ -70,14 +80,19 @@ public class GameManager : MonoSingleton<GameManager>
         _nextLevelObject.transform.position = new Vector3(6, 0, 0);
         
         yield return new WaitForSeconds(2f);
-        _nextLevelIndex++;
         _activeLevelIndex++;
         _nextLevelObject.SetActive(true);
         _nextLevelObject.transform.position = Vector3.zero;
         
         OnLevelReadyEvent?.Invoke();
+        _isWorking = false;
     }
 
+    public void IncrementCoinValue()
+    {
+        OptionsManager.Instance.ChangeCoins(1);
+    }
+    
     public void EndGame()
     {
         OnGameWonEvent?.Invoke();

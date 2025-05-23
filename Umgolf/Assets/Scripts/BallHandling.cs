@@ -19,6 +19,7 @@ public class BallHandling : MonoBehaviour
     public UnityEvent OnBallEnabledEvent;
     public UnityEvent OnBallSwingEvent;
     public UnityEvent<Vector2> OnBallBounceEvent;
+    public UnityEvent<Vector2> OnBallInteractEvent;
 
     private Vector2 _startingBallPosition = new Vector2(0, -3);
     private Vector2 _initialTouchPosition;
@@ -102,14 +103,11 @@ public class BallHandling : MonoBehaviour
     private IEnumerator OnBallReachingHole()
     {
         _rigidBody.velocity = Vector2.zero;
-        
-        //TODO: All this grabbing of the Hole is long & impractical... perhaps init a variable with it on Start()?
 		float distance = Vector3.Distance(HoleHandling.Instance.gameObject.transform.position, transform.position);
 
 		
 		while(distance > 0.03f)
 		{
-            
         	transform.position = Vector3.Lerp(transform.position, HoleHandling.Instance.gameObject.transform.position, 0.2f);
             distance = Vector3.Distance(HoleHandling.Instance.gameObject.transform.position, transform.position);
             
@@ -117,12 +115,27 @@ public class BallHandling : MonoBehaviour
 		}
 		yield return null;
     }
+    
+    //Collision method handles wall bounces and physics related interactions.
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D contactPoint = collision.GetContact(0);
         OnBallBounceEvent?.Invoke(contactPoint.point);
     }
-
+    
+    //Trigger method handles interactables without conducting physics changes.
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Por agora Coins são os únicos interagíveis, por isso digo à bola para o GameManager dar increment nesse event.
+        //No futuro pode ser útil discriminar entre IInteractables e Coins, pois serão os únicos "resources" apanháveis.
+        IInteractable interfaceToCheck = collision.GetComponent<IInteractable>();
+        if(interfaceToCheck != null)
+        {
+            interfaceToCheck.Interact();
+            OnBallInteractEvent?.Invoke(collision.transform.position);
+        }
+    }
+    
     private void OnDisable()
     {
         _referenceLineRenderer.positionCount = 0;

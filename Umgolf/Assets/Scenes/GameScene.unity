@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _availableBalls: 10
+  _activeLevelIndex: 0
   OnGameStartingEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -210,6 +211,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1565995645}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Update
           m_BoolArgument: 0
         m_CallState: 2
   OnLevelReadyEvent:
@@ -261,7 +274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &133202511
 RectTransform:
   m_ObjectHideFlags: 0
@@ -784,7 +797,7 @@ GameObject:
   - component: {fileID: 319182353}
   - component: {fileID: 319182352}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Flavor Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1050,7 +1063,6 @@ GameObject:
   - component: {fileID: 389712081}
   - component: {fileID: 389712084}
   - component: {fileID: 389712083}
-  - component: {fileID: 389712082}
   m_Layer: 5
   m_Name: 'Level Animation '
   m_TagString: Untagged
@@ -1077,27 +1089,6 @@ RectTransform:
   m_AnchoredPosition: {x: -101.61, y: 0.000030518}
   m_SizeDelta: {x: 8.24, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &389712082
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389712080}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e1339e3c93ac4ec489c9da40f2d87ab7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &389712083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1623,6 +1614,7 @@ GameObject:
   - component: {fileID: 895817732}
   - component: {fileID: 895817731}
   - component: {fileID: 895817733}
+  - component: {fileID: 895817738}
   - component: {fileID: 895817734}
   - component: {fileID: 895817735}
   - component: {fileID: 895817736}
@@ -1823,6 +1815,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnBallInteractEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1942226862}
+        m_TargetAssemblyTypeName: VFXManager, Assembly-CSharp
+        m_MethodName: CreateCoinVFX
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 45242310}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: IncrementCoinValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _currentTouchPosition: {x: 0, y: 0}
   _distanceFromBall: {x: 0, y: 0}
 --- !u!120 &895817736
@@ -1950,6 +1969,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &895817738
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895817730}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.7500001
 --- !u!1 &928877948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2664,6 +2718,8 @@ GameObject:
   - component: {fileID: 1565995641}
   - component: {fileID: 1565995643}
   - component: {fileID: 1565995642}
+  - component: {fileID: 1565995645}
+  - component: {fileID: 1565995644}
   m_Layer: 5
   m_Name: Level Count
   m_TagString: Untagged
@@ -2731,55 +2787,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565995640}
   m_CullTransparentMesh: 1
---- !u!1 &1613284743
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1613284744}
-  - component: {fileID: 1613284745}
-  m_Layer: 0
-  m_Name: OptionsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1613284744
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613284743}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.017602958, y: 0.4551655, z: -0.060090605}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1613284745
+--- !u!114 &1565995644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613284743}
+  m_GameObject: {fileID: 1565995640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0685a5dd56bb5c642893c9db77241bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: abef9c5a7abb7534caef76b9b7fb4721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coins: 0
-  _maxBalls: 0
-  _recordLevel: 0
-  _musicPercentage: 0
-  _sfxPercentage: 0
+  _value: 1
+  _text: {fileID: 928877950}
+--- !u!95 &1565995645
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565995640}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e1339e3c93ac4ec489c9da40f2d87ab7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1694074094
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,9 +2941,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a29d7065f8d9a4bbb5d346bb52ef4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelCountText: {fileID: 0}
-  _coinCountText: {fileID: 0}
-  _ballCountText: {fileID: 0}
+  _levelCountText: {fileID: 928877948}
+  _coinCountText: {fileID: 1939208700}
+  _ballCountText: {fileID: 1420378004}
 --- !u!1 &1760911737
 GameObject:
   m_ObjectHideFlags: 0
@@ -3298,7 +3340,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: '0
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 541e3869362bfbc479479ee5490bbe77, type: 2}
   m_sharedMaterial: {fileID: 5288915122757280701, guid: 541e3869362bfbc479479ee5490bbe77, type: 2}
@@ -3533,11 +3577,31 @@ PrefabInstance:
       value: Hole
       objectReference: {fileID: 0}
     - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
       propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 895817735}
     - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1991661318753673444}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
       propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1991661318753673443}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 895817737}
     - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
@@ -3548,11 +3612,61 @@ PrefabInstance:
       propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Target
       value: 
       objectReference: {fileID: 45242310}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.ParticleSystem, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UnityEngine.Animator, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800852973471634151, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+      propertyPath: OnBallEnterHoleEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Fell
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+--- !u!198 &1991661318753673443 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8247879070057895303, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+  m_PrefabInstance: {fileID: 1991661318753673442}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1991661318753673444 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2737975376957479515, guid: 4e74162d23ba7af478e841da69743b73, type: 3}
+  m_PrefabInstance: {fileID: 1991661318753673442}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3565,7 +3679,6 @@ SceneRoots:
   - {fileID: 1942226861}
   - {fileID: 45242309}
   - {fileID: 1737234444}
-  - {fileID: 1613284744}
   - {fileID: 1425940254}
   - {fileID: 1170258754}
   - {fileID: 1007408852}

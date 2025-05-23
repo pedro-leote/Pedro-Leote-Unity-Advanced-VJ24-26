@@ -316,7 +316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7ffc8f310c89c47679285e29d8583529, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db7aaa162a1a5a54b826d15b5b20fb06, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 1210764289}
   - component: {fileID: 1210764288}
   m_Layer: 0
-  m_Name: OptionsManager
+  m_Name: ProgressionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -654,6 +654,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a29d7065f8d9a4bbb5d346bb52ef4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelCountText: {fileID: 0}
+  _coinCountText: {fileID: 0}
+  _ballCountText: {fileID: 0}
 --- !u!1 &1602162282
 GameObject:
   m_ObjectHideFlags: 0

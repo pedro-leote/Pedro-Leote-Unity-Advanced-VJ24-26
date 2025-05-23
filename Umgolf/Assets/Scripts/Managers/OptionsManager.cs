@@ -14,6 +14,29 @@ public class OptionsManager : MonoSingleton<OptionsManager>
     [SerializeField] private float _musicPercentage;
     [SerializeField] private float _sfxPercentage;
     
+    public void ChangeCoins(int value)
+    {
+        _coins += value;
+    }
+
+    public void SetNewRecord(int value)
+    {
+        _recordLevel = value;
+    }
+
+    public void ChangeMaxBalls(int value)
+    {
+        _maxBalls += value;
+    }    
+    
+    public void SetMusicPercentage(float value)
+    {
+        _musicPercentage = value;
+    }
+    public void SetSfxPercentage(float value)
+    {
+        _sfxPercentage = value;
+    }
     public void SaveRequested(SaveData saveData)
     {
         saveData._maxBalls = _maxBalls;
