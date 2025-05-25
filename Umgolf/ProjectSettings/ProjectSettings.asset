@@ -141,7 +141,11 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 1.0.2
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -944628639613478452, guid: ceff36e982a38624bb64dbb5f0157135, type: 3}
+  - {fileID: 1011624139907226485, guid: 6383402b9bcbc9748a5734820545702b, type: 2}
+  - {fileID: 11400000, guid: 9aad9efa6a3d2de45be0d0e9f5cbf141, type: 2}
+  - {fileID: 11400000, guid: 6c94442be91e07d41ad228211df37653, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -150,7 +154,7 @@ PlayerSettings:
   vrSettings:
     enable360StereoCapture: 0
   isWsaHolographicRemotingEnabled: 0
-  enableFrameTimingStats: 0
+  enableFrameTimingStats: 1
   enableOpenGLProfilerGPURecorders: 1
   allowHDRDisplaySupport: 0
   useHDRDisplay: 0
@@ -811,7 +815,7 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 2
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: f27aca9b-4fe9-4c1f-b0cf-bb298da319f2
   framebufferDepthMemorylessMode: 0
